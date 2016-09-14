@@ -4,4 +4,9 @@
     <string name="login.message.password">Contraseña</string>
     <string name="login.button.singing">Iniciar sesión</string>
     <string name="login.button.singup">Crear cuenta</string>
+
+
+    <string name="login.error.message.signing">Imposible iniciar sesión %s</string>
+    <string name="login.error.message.signup">Imposible registrar nuevo usuario %s</string>
+    <string name="login.notice.message.signup">Usuario creado con éxito</string>
 </resources>
