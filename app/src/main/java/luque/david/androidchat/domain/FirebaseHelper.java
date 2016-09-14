@@ -1,4 +1,4 @@
-package luque.david.androidchat;
+package luque.david.androidchat.domain;
 
 import com.firebase.client.AuthData;
 import com.firebase.client.DataSnapshot;
