@@ -7,7 +7,7 @@ import com.firebase.client.Firebase;
 /**
  * Created by David on 12/9/16.
  */
-public class AndroidChatApplication extends Application {
+public class PayMeApplication extends Application {
 
     @Override
     public void onCreate() {
