@@ -11,7 +11,7 @@ public class GreenRobotEventBus implements EventBus {
         private static final GreenRobotEventBus INSTANCE = new GreenRobotEventBus();
     }
 
-    private static GreenRobotEventBus getInstance(){
+    public static GreenRobotEventBus getInstance(){
         return SingletoneHolder.INSTANCE;
     }
 
