@@ -9,4 +9,6 @@
     <string name="login.error.message.signing">Imposible iniciar sesión %s</string>
     <string name="login.error.message.signup">Imposible registrar nuevo usuario %s</string>
     <string name="login.notice.message.signup">Usuario creado con éxito</string>
+
+    <string name="deals.menu.action.signoff">Cerrar sesión</string>
 </resources>

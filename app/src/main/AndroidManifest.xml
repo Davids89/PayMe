@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".contactlist.DealsActivity">
+        <activity android:name=".deals.DealsActivity">
         </activity>
     </application>
 

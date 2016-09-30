@@ -15,7 +15,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import luque.david.androidchat.R;
-import luque.david.androidchat.contactlist.DealsActivity;
+import luque.david.androidchat.deals.DealsActivity;
 import luque.david.androidchat.login.LoginPresenter;
 import luque.david.androidchat.login.LoginPresenterImpl;
 
