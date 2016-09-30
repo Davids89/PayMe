@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import luque.david.androidchat.R;
 
-public class ContactListActivity extends AppCompatActivity {
+public class DealsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

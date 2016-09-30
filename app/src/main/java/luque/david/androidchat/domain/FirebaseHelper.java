@@ -16,11 +16,10 @@ import luque.david.androidchat.entities.User;
  */
 public class FirebaseHelper {
     private Firebase dataReference;
-    private final static String FIREBASE_URL = "https://android-chat-david.firebaseio.com/";
+    private final static String FIREBASE_URL = "https://android-payme.firebaseio.com/";
     private final static String USERS_PATH = "users";
-    private final static String CONTACTS_PATH = "contacts";
-    private final static String CHATS_PATH = "chats";
-    private final static String SEPARATOR = "___";
+    private final static String DEALS_PATH = "deals";
+    private final static String FRIENDS_PATH = "friends";
 
     private static class SingletoneHolder{
         private static final FirebaseHelper INSTANCE = new FirebaseHelper();
@@ -65,7 +64,7 @@ public class FirebaseHelper {
     }
 
     public Firebase getContactsReference(String email){
-        return getUserReference(email).child(CONTACTS_PATH);
+        return getUserReference(email).child(DEALS_PATH);
     }
 
     public Firebase getMyContactsReference(){
@@ -74,19 +73,16 @@ public class FirebaseHelper {
 
     public Firebase getOneContactReference(String mainEmail, String childEmail){
         String childKey = childEmail.replace(".", "_");
-        return getUserReference(mainEmail).child(CONTACTS_PATH).child(childKey);
+        return getUserReference(mainEmail).child(DEALS_PATH).child(childKey);
     }
 
-    public Firebase getChatsReference(String receiver){
-        String keySender = getAuthUserEmail().replace(".", "_");
-        String keyReceiver = getAuthUserEmail().replace(".", "_");
+    public Firebase getUserFriends(String email){
+        return getUserReference(email).child(FRIENDS_PATH);
+    }
 
-        String keyChat = keySender + SEPARATOR + keyReceiver;
-        if(keySender.compareTo(keyReceiver) > 0){
-            keyChat = keyReceiver + SEPARATOR + keySender;
-        }
-
-        return dataReference.getRoot().child(CHATS_PATH).child(keyChat);
+    public Firebase getOneUserFriend(String mainEmail, String childEmail){
+        String childKey = childEmail.replace(".", "_");
+        return getUserReference(mainEmail).child(FRIENDS_PATH).child(childKey);
     }
 
     public void changeUserConnectionStatus(boolean online){

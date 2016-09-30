@@ -1,4 +1,4 @@
-package luque.david.androidchat.login;
+package luque.david.androidchat.login.ui;
 
 /**
  * Created by David on 14/9/16.
