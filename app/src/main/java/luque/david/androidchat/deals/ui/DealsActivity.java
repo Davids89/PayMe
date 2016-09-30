@@ -1,4 +1,4 @@
-package luque.david.androidchat.deals;
+package luque.david.androidchat.deals.ui;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,9 +7,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import luque.david.androidchat.R;
+import luque.david.androidchat.deals.DealsPresenter;
+import luque.david.androidchat.deals.DealsPresenterImpl;
 import luque.david.androidchat.login.ui.LoginActivity;
 
-public class DealsActivity extends AppCompatActivity {
+public class DealsActivity extends AppCompatActivity implements DealsView {
 
     private DealsPresenter presenter;
 

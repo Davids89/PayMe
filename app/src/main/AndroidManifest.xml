@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".deals.DealsActivity">
+        <activity android:name=".deals.ui.DealsActivity">
         </activity>
     </application>
 
