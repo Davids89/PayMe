@@ -11,4 +11,9 @@
     <string name="login.notice.message.signup">Usuario creado con éxito</string>
 
     <string name="deals.menu.action.signoff">Cerrar sesión</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="adddeal.message.title">Añadir trato</string>
+    <string name="adddeal.message.add">Aceptar</string>
+    <string name="adddeal.message.cancel">Cancelar</string>
 </resources>

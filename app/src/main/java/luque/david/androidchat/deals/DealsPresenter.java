@@ -6,4 +6,6 @@ package luque.david.androidchat.deals;
 
 public interface DealsPresenter {
     void signOff();
+    void addDeal();
+    void selectDeal();
 }

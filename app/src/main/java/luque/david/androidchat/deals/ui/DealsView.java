@@ -5,4 +5,5 @@ package luque.david.androidchat.deals.ui;
  */
 
 public interface DealsView {
+    void selectDeal();
 }

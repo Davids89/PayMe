@@ -16,4 +16,14 @@ public class DealsPresenterImpl implements DealsPresenter {
     public void signOff() {
         interactor.signOff();
     }
+
+    @Override
+    public void addDeal() {
+
+    }
+
+    @Override
+    public void selectDeal() {
+
+    }
 }
