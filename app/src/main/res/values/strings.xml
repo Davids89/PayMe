@@ -16,4 +16,6 @@
     <string name="adddeal.message.title">Añadir trato</string>
     <string name="adddeal.message.add">Aceptar</string>
     <string name="adddeal.message.cancel">Cancelar</string>
+    <string name="adddeal.message.name">Nombre del trato</string>
+    <string name="adddeal.message.price">Precio</string>
 </resources>

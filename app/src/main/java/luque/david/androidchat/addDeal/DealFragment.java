@@ -18,7 +18,7 @@ import luque.david.androidchat.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DealFragment extends DialogFragment implements DialogInterface.OnShowListener{
+public class DealFragment extends DialogFragment implements addDealView, DialogInterface.OnShowListener{
 
 
     public DealFragment() {
@@ -56,6 +56,26 @@ public class DealFragment extends DialogFragment implements DialogInterface.OnSh
 
     @Override
     public void onShow(DialogInterface dialogInterface) {
+
+    }
+
+    @Override
+    public void showInput() {
+
+    }
+
+    @Override
+    public void hideInput() {
+
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
 
     }
 }

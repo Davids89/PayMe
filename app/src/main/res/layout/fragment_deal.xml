@@ -4,19 +4,40 @@
     android:layout_height="match_parent"
     tools:context="luque.david.androidchat.addDeal.DealFragment">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/wrapperEmail"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_horizontal_margin">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <EditText
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/wrapperName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/login.message.email"
-            android:inputType="textEmailAddress"
-            android:id="@+id/editTxtEmail"/>
-    </android.support.design.widget.TextInputLayout>
+            android:layout_margin="@dimen/activity_horizontal_margin">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/adddeal.message.name"
+                android:inputType="text"
+                android:id="@+id/editTxtName"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/wrapperPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_horizontal_margin">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/adddeal.message.price"
+                android:inputType="number"
+                android:id="@+id/editTxtPrice"/>
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
 
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
