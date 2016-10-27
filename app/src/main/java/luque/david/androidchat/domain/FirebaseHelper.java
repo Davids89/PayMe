@@ -63,15 +63,18 @@ public class FirebaseHelper {
         return getUserReference(getAuthUserEmail());
     }
 
-    public Firebase getContactsReference(String email){
-        return getUserReference(email).child(DEALS_PATH);
+    public Firebase getDealsReference(String email){
+
+        String key = email.replace('.', '_');
+
+        return dataReference.getRoot().child(DEALS_PATH).child(key);
     }
 
-    public Firebase getMyContactsReference(){
-        return getContactsReference(getAuthUserEmail());
+    public Firebase getMyDealsReference(){
+        return getDealsReference(getAuthUserEmail());
     }
 
-    public Firebase getOneContactReference(String mainEmail, String childEmail){
+    public Firebase getOneDealReference(String mainEmail, String childEmail){
         String childKey = childEmail.replace(".", "_");
         return getUserReference(mainEmail).child(DEALS_PATH).child(childKey);
     }
@@ -104,12 +107,12 @@ public class FirebaseHelper {
 
     private void notifyContactsOfConnectionChange(final boolean online, final boolean singoff) {
         final String myEmail = getAuthUserEmail();
-        getMyContactsReference().addListenerForSingleValueEvent(new ValueEventListener() {
+        getMyDealsReference().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot child : dataSnapshot.getChildren()){
                     String email = child.getKey();
-                    Firebase reference = getOneContactReference(email, myEmail);
+                    Firebase reference = getOneDealReference(email, myEmail);
                     reference.setValue(online);
                 }
 

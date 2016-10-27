@@ -12,7 +12,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import luque.david.androidchat.R;
-import luque.david.androidchat.addDeal.DealFragment;
+import luque.david.androidchat.addDeal.ui.AddDealFragment;
 import luque.david.androidchat.deals.DealsPresenter;
 import luque.david.androidchat.deals.DealsPresenterImpl;
 import luque.david.androidchat.login.ui.LoginActivity;
@@ -63,6 +63,6 @@ public class DealsActivity extends AppCompatActivity implements DealsView {
 
     @OnClick(R.id.fab)
     void addDeal(){
-        new DealFragment().show(getSupportFragmentManager(), getString(R.string.adddeal_message_title));
+        new AddDealFragment().show(getSupportFragmentManager(), getString(R.string.adddeal_message_title));
     }
 }

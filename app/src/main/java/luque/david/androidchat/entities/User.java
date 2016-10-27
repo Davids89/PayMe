@@ -1,14 +1,16 @@
 package luque.david.androidchat.entities;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
  * Created by David on 19/9/16.
  */
 public class User {
-    String email;
-    boolean online;
-    Map<String, Boolean> contacts;
+    private String email;
+    private boolean online;
+    private Map<String, Boolean> contacts;
+
     public final static boolean ONLINE = true;
 
     public Map<String, Boolean> getContacts() {
