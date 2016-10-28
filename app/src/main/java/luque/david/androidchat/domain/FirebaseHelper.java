@@ -75,31 +75,11 @@ public class FirebaseHelper {
     }
 
     public Firebase getOneDealReference(String mainEmail, String childEmail){
+        //TODO: We have to change the way to get one deal
         String childKey = childEmail.replace(".", "_");
         return getUserReference(mainEmail).child(DEALS_PATH).child(childKey);
     }
 
-    public Firebase getUserFriends(String email){
-        return getUserReference(email).child(FRIENDS_PATH);
-    }
-
-    public Firebase getOneUserFriend(String mainEmail, String childEmail){
-        String childKey = childEmail.replace(".", "_");
-        return getUserReference(mainEmail).child(FRIENDS_PATH).child(childKey);
-    }
-
-    public void changeUserConnectionStatus(boolean online){
-        if(getMyUserReference() != null){
-            Map<String, Object> updates = new HashMap<String, Object>();
-            updates.put("online", online);
-            getMyUserReference().updateChildren(updates);
-            notifyContactsOfConnectionChange(online);
-        }
-    }
-
-    public void notifyContactsOfConnectionChange(boolean online) {
-        notifyContactsOfConnectionChange(online, false);
-    }
 
     public void SignOff(){
         notifyContactsOfConnectionChange(User.OFFLINE, true);

@@ -31,17 +31,30 @@ public class AddDealPresenterImpl implements AddDealPresenter {
     @Override
     public void onDestroy() {
         eventBus.unregister(this);
-
+        view = null;
     }
 
     @Override
     public void addDeal() {
+        if(view != null){
+            view.showProgress();
+            view.hideInput();
+        }
         interactor.createDeal();
     }
 
     @Override
     @Subscribe
     public void onEventMainThread(AddDealEvents event) {
+        if(view != null){
+            view.hideProgress();
+            view.showInput();
 
+            if(event.isError()){
+                view.dealNotAdded();
+            }else{
+                view.dealAdded();
+            }
+        }
     }
 }

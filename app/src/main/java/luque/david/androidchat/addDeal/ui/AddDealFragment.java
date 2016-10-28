@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -94,6 +95,8 @@ public class AddDealFragment extends DialogFragment implements AddDealView, Dial
                 }
             });
         }
+
+        presenter.onShow();
     }
 
     @Override
@@ -120,7 +123,9 @@ public class AddDealFragment extends DialogFragment implements AddDealView, Dial
 
     @Override
     public void dealAdded() {
-
+        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_deal, null);
+        Snackbar.make(view, R.string.adddeal_message_added, Snackbar.LENGTH_SHORT).show();
+        dismiss();
     }
 
     @Override

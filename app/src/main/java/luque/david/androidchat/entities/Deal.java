@@ -11,7 +11,7 @@ import java.util.Map;
 @JsonIgnoreProperties({"sentByMe"})
 public class Deal {
 
-    private String email_author;
+    private String dealId;
     private Map<String, Boolean> contacts;
     private Float amount;
     private Date date_created;
@@ -21,12 +21,12 @@ public class Deal {
 
     }
 
-    public String getEmail_author() {
-        return email_author;
+    public String getDealId() {
+        return dealId;
     }
 
-    public void setEmail_author(String email_author) {
-        this.email_author = email_author;
+    public void setDealId(String dealId) {
+        this.dealId = dealId;
     }
 
     public Map<String, Boolean> getContacts() {

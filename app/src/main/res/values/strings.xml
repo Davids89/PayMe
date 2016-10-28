@@ -18,4 +18,5 @@
     <string name="adddeal.message.cancel">Cancelar</string>
     <string name="adddeal.message.name">Nombre del trato</string>
     <string name="adddeal.message.price">Precio</string>
+    <string name="adddeal.message.added">Trato añadido con éxito</string>
 </resources>

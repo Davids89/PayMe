@@ -1,14 +1,17 @@
 package luque.david.androidchat.addDeal;
 
-import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import luque.david.androidchat.addDeal.events.AddDealEvents;
 import luque.david.androidchat.domain.FirebaseHelper;
 import luque.david.androidchat.entities.Deal;
-import luque.david.androidchat.entities.User;
 import luque.david.androidchat.lib.EventBus;
 import luque.david.androidchat.lib.GreenRobotEventBus;
 
@@ -20,7 +23,6 @@ public class AddDealRepositoryImpl implements AddDealRepository {
 
     private FirebaseHelper helper;
     private EventBus eventBus;
-    private ChildEventListener dealsEventListener;
 
     public AddDealRepositoryImpl() {
         this.helper = FirebaseHelper.getInstance();
@@ -30,59 +32,43 @@ public class AddDealRepositoryImpl implements AddDealRepository {
     @Override
     public void createDeal() {
 
-        String email = helper.getAuthUserEmail().replace('.', '_');
+        final DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy_HH:mm:ss");
+        final Date date = new Date();
+        final String dealId = helper.getAuthUserEmail().replace('.', '_') + '_' + dateFormat.format(date);
+
         Deal newDeal = new Deal();
 
-        newDeal.setEmail_author(email);
+        newDeal.setDealId(dealId);
 
-        Firebase dealsReference = helper.getDealsReference(email);
+        Firebase dealsReference = helper.getDealsReference(dealId);
         dealsReference.push().setValue(newDeal);
 
+        dealsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                postSuccess();
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                postError();
+            }
+        });
+
     }
 
-    @Override
-    public void subscribe() {
-        if(dealsEventListener == null){
-            dealsEventListener = new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    //TODO
-                }
-
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
-
-                }
-            };
-        }
-
-        helper.getDealsReference(helper.getAuthUserEmail()).addChildEventListener(dealsEventListener);
+    private void postSuccess(){
+        post(false);
     }
 
-    @Override
-    public void unsubscribe() {
-        if(dealsEventListener != null){
-            helper.getDealsReference(helper.getAuthUserEmail()).removeEventListener(dealsEventListener);
-        }
+    private void postError(){
+        post(true);
     }
 
-    @Override
-    public void destroyListener() {
-        dealsEventListener = null;
+    private void post(boolean error){
+        AddDealEvents event = new AddDealEvents();
+        event.setError(error);
+        eventBus.post(event);
     }
 }

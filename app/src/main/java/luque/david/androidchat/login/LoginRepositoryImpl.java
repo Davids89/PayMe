@@ -66,7 +66,6 @@ public class LoginRepositoryImpl implements LoginRepository {
                                 myUserReference.setValue(currentUser);
                             }
                         }
-                        firebaseHelper.changeUserConnectionStatus(User.ONLINE);
                         postEvent(LoginEvent.onSignInSuccess);
                     }
 

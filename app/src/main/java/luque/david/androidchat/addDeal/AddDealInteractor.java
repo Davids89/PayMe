@@ -6,7 +6,4 @@ package luque.david.androidchat.addDeal;
 
 public interface AddDealInteractor {
     void createDeal();
-    void subscribe();
-    void unsubscribe();
-    void destroyListener();
 }

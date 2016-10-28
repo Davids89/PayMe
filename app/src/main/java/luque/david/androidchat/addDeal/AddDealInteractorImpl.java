@@ -16,19 +16,4 @@ public class AddDealInteractorImpl implements AddDealInteractor{
     public void createDeal() {
         repository.createDeal();
     }
-
-    @Override
-    public void subscribe() {
-        repository.subscribe();
-    }
-
-    @Override
-    public void unsubscribe() {
-        repository.unsubscribe();
-    }
-
-    @Override
-    public void destroyListener() {
-        repository.destroyListener();
-    }
 }
