@@ -12,13 +12,22 @@ import java.util.Map;
 public class Deal {
 
     private String dealId;
+    private String name;
     private Map<String, Boolean> contacts;
-    private Float amount;
+    private String amount;
     private Date date_created;
     private String info;
 
     public Deal() {
 
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDealId() {
@@ -37,11 +46,11 @@ public class Deal {
         this.contacts = contacts;
     }
 
-    public Float getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(Float amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 

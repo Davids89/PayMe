@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -15,15 +18,19 @@ import luque.david.androidchat.R;
 import luque.david.androidchat.addDeal.ui.AddDealFragment;
 import luque.david.androidchat.deals.DealsPresenter;
 import luque.david.androidchat.deals.DealsPresenterImpl;
+import luque.david.androidchat.deals.adapter.DealsListAdapter;
+import luque.david.androidchat.deals.adapter.OnItemClickListener;
+import luque.david.androidchat.entities.Deal;
 import luque.david.androidchat.login.ui.LoginActivity;
 
-public class DealsActivity extends AppCompatActivity implements DealsView {
+public class DealsActivity extends AppCompatActivity implements DealsView, OnItemClickListener {
 
     @Bind(R.id.recyclerViewContacts)
     RecyclerView recyclerViewContacts;
     @Bind(R.id.fab)
     FloatingActionButton fab;
     private DealsPresenter presenter;
+    private DealsListAdapter adapter;
 
     public DealsActivity() {
         this.presenter = new DealsPresenterImpl();
@@ -32,8 +39,33 @@ public class DealsActivity extends AppCompatActivity implements DealsView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact_list);
+        setContentView(R.layout.activity_deals_list);
         ButterKnife.bind(this);
+
+        setupAdapter();
+        setupRecyclerView();
+
+        //TODO: setupAdapter & setupCardView
+    }
+
+    private void setupAdapter() {
+
+        ArrayList<Deal> deals = new ArrayList<Deal>();
+        Deal deal = new Deal();
+        Deal deal2 = new Deal();
+        deal.setName("Prueba");
+        deal2.setName("Prueba 2");
+        deal.setAmount("11");
+        deal2.setAmount("22");
+        deals.add(deal);
+        deals.add(deal2);
+
+        adapter = new DealsListAdapter(deals, this);
+    }
+
+    private void setupRecyclerView() {
+        recyclerViewContacts.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewContacts.setAdapter(adapter);
     }
 
     @Override
@@ -64,5 +96,15 @@ public class DealsActivity extends AppCompatActivity implements DealsView {
     @OnClick(R.id.fab)
     void addDeal(){
         new AddDealFragment().show(getSupportFragmentManager(), getString(R.string.adddeal_message_title));
+    }
+
+    @Override
+    public void onItemClick(Deal deal) {
+
+    }
+
+    @Override
+    public void onItemLongClick(Deal deal) {
+
     }
 }
