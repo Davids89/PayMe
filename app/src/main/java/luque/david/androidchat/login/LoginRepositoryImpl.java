@@ -85,7 +85,30 @@ public class LoginRepositoryImpl implements LoginRepository {
 
     @Override
     public void checkSession() {
-        postEvent(LoginEvent.onFailToRecoverSession);
+        if(dataReference.getAuth() != null){
+            initSignIn();
+        }else{
+            postEvent(LoginEvent.onFailToRecoverSession);
+        }
+    }
+
+    private void initSignIn(){
+        myUserReference = firebaseHelper.getMyUserReference();
+        myUserReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User currentUser = dataSnapshot.getValue(User.class);
+
+                if(currentUser != null){
+                    postEvent(LoginEvent.onSignInSuccess);
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
     }
 
     private void postEvent(int type, String errorMessage){
