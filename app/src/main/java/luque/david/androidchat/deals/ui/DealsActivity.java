@@ -44,8 +44,6 @@ public class DealsActivity extends AppCompatActivity implements DealsView, OnIte
 
         setupAdapter();
         setupRecyclerView();
-
-        //TODO: setupAdapter & setupCardView
     }
 
     private void setupAdapter() {

@@ -1,5 +1,4 @@
 package luque.david.androidchat.deals;
-
 import luque.david.androidchat.domain.FirebaseHelper;
 
 /**
@@ -18,4 +17,5 @@ public class DealsRepositoryImpl implements DealsRepository {
     public void signOff() {
         helper.SignOff();
     }
+
 }
