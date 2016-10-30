@@ -5,5 +5,9 @@ package luque.david.androidchat.deals;
  */
 
 public interface DealsRepository {
+
     void signOff();
+    void subscribeToDealsListEvents();
+    void unsubscribeToDealsListEvents();
+    void destroyListener();
 }

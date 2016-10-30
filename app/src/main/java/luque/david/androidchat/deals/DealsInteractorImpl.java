@@ -16,4 +16,19 @@ public class DealsInteractorImpl implements DealsInteractor {
     public void signOff() {
         repository.signOff();
     }
+
+    @Override
+    public void subscribe() {
+        repository.subscribeToDealsListEvents();
+    }
+
+    @Override
+    public void unsubscribe() {
+        repository.unsubscribeToDealsListEvents();
+    }
+
+    @Override
+    public void destroyListener() {
+        repository.destroyListener();
+    }
 }

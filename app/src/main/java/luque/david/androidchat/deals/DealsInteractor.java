@@ -6,4 +6,7 @@ package luque.david.androidchat.deals;
 
 public interface DealsInteractor {
     void signOff();
+    void subscribe();
+    void unsubscribe();
+    void destroyListener();
 }

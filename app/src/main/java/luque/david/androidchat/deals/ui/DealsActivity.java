@@ -33,7 +33,7 @@ public class DealsActivity extends AppCompatActivity implements DealsView, OnIte
     private DealsListAdapter adapter;
 
     public DealsActivity() {
-        this.presenter = new DealsPresenterImpl();
+        this.presenter = new DealsPresenterImpl(this);
     }
 
     @Override
@@ -44,19 +44,13 @@ public class DealsActivity extends AppCompatActivity implements DealsView, OnIte
 
         setupAdapter();
         setupRecyclerView();
+        presenter = new DealsPresenterImpl(this);
+        presenter.onCreate();
     }
 
     private void setupAdapter() {
 
         ArrayList<Deal> deals = new ArrayList<Deal>();
-        Deal deal = new Deal();
-        Deal deal2 = new Deal();
-        deal.setName("Prueba");
-        deal2.setName("Prueba 2");
-        deal.setAmount("11");
-        deal2.setAmount("22");
-        deals.add(deal);
-        deals.add(deal2);
 
         adapter = new DealsListAdapter(deals, this);
     }
@@ -87,8 +81,41 @@ public class DealsActivity extends AppCompatActivity implements DealsView, OnIte
     }
 
     @Override
+    protected void onResume() {
+        presenter.onResume();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        presenter.onPause();
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        presenter.onDestroy();
+        super.onDestroy();
+    }
+
+    @Override
     public void selectDeal() {
 
+    }
+
+    @Override
+    public void onDealAdded(Deal deal) {
+        adapter.add(deal);
+    }
+
+    @Override
+    public void onDealChanged(Deal deal) {
+        adapter.update(deal);
+    }
+
+    @Override
+    public void onDealRemoved(Deal deal) {
+        adapter.delete(deal);
     }
 
     @OnClick(R.id.fab)
