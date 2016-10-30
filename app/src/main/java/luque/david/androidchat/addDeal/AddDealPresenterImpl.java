@@ -35,12 +35,12 @@ public class AddDealPresenterImpl implements AddDealPresenter {
     }
 
     @Override
-    public void addDeal() {
+    public void addDeal(String name, String price) {
         if(view != null){
             view.showProgress();
             view.hideInput();
         }
-        interactor.createDeal();
+        interactor.createDeal(name, price);
     }
 
     @Override

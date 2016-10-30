@@ -81,7 +81,7 @@ public class AddDealFragment extends DialogFragment implements AddDealView, Dial
             positiveButton.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
-                    presenter.addDeal();
+                    presenter.addDeal(editTxtName.getText().toString(), editTxtPrice.getText().toString());
                 }
             });
 
