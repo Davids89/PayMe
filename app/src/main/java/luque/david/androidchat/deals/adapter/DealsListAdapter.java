@@ -43,6 +43,28 @@ public class DealsListAdapter extends RecyclerView.Adapter<DealsListAdapter.View
         holder.dealAmount.setText(amount);
     }
 
+    public void add(Deal deal){
+        if(!deals.contains(deal)){
+            deals.add(deal);
+            notifyDataSetChanged();
+        }
+    }
+
+    public void update(Deal deal){
+        if(deals.contains(deal)){
+            int index = deals.indexOf(deal);
+            deals.set(index, deal);
+            notifyDataSetChanged();
+        }
+    }
+
+    public void delete(Deal deal){
+        if(deals.contains(deal)){
+            deals.remove(deal);
+            notifyDataSetChanged();
+        }
+    }
+
     @Override
     public int getItemCount() {
         return deals.size();
