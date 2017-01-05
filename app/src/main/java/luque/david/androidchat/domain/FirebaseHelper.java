@@ -16,11 +16,10 @@ import luque.david.androidchat.entities.User;
  */
 public class FirebaseHelper {
     private Firebase dataReference;
-    private final static String FIREBASE_URL = "https://android-chat-david.firebaseio.com/";
+    private final static String FIREBASE_URL = "https://android-payme.firebaseio.com/";
     private final static String USERS_PATH = "users";
-    private final static String CONTACTS_PATH = "contacts";
-    private final static String CHATS_PATH = "chats";
-    private final static String SEPARATOR = "___";
+    private final static String DEALS_PATH = "deals";
+    private final static String FRIENDS_PATH = "friends";
 
     private static class SingletoneHolder{
         private static final FirebaseHelper INSTANCE = new FirebaseHelper();
@@ -64,43 +63,23 @@ public class FirebaseHelper {
         return getUserReference(getAuthUserEmail());
     }
 
-    public Firebase getContactsReference(String email){
-        return getUserReference(email).child(CONTACTS_PATH);
+    public Firebase getDealsReference(String email){
+
+        String key = email.replace('.', '_');
+
+        return dataReference.getRoot().child(DEALS_PATH).child(key);
     }
 
-    public Firebase getMyContactsReference(){
-        return getContactsReference(getAuthUserEmail());
+    public Firebase getMyDealsReference(){
+        return getDealsReference(getAuthUserEmail());
     }
 
-    public Firebase getOneContactReference(String mainEmail, String childEmail){
+    public Firebase getOneDealReference(String mainEmail, String childEmail){
+        //TODO: We have to change the way to get one deal
         String childKey = childEmail.replace(".", "_");
-        return getUserReference(mainEmail).child(CONTACTS_PATH).child(childKey);
+        return getUserReference(mainEmail).child(DEALS_PATH).child(childKey);
     }
 
-    public Firebase getChatsReference(String receiver){
-        String keySender = getAuthUserEmail().replace(".", "_");
-        String keyReceiver = getAuthUserEmail().replace(".", "_");
-
-        String keyChat = keySender + SEPARATOR + keyReceiver;
-        if(keySender.compareTo(keyReceiver) > 0){
-            keyChat = keyReceiver + SEPARATOR + keySender;
-        }
-
-        return dataReference.getRoot().child(CHATS_PATH).child(keyChat);
-    }
-
-    public void changeUserConnectionStatus(boolean online){
-        if(getMyUserReference() != null){
-            Map<String, Object> updates = new HashMap<String, Object>();
-            updates.put("online", online);
-            getMyUserReference().updateChildren(updates);
-            notifyContactsOfConnectionChange(online);
-        }
-    }
-
-    public void notifyContactsOfConnectionChange(boolean online) {
-        notifyContactsOfConnectionChange(online, false);
-    }
 
     public void SignOff(){
         notifyContactsOfConnectionChange(User.OFFLINE, true);
@@ -108,12 +87,12 @@ public class FirebaseHelper {
 
     private void notifyContactsOfConnectionChange(final boolean online, final boolean singoff) {
         final String myEmail = getAuthUserEmail();
-        getMyContactsReference().addListenerForSingleValueEvent(new ValueEventListener() {
+        getMyDealsReference().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot child : dataSnapshot.getChildren()){
                     String email = child.getKey();
-                    Firebase reference = getOneContactReference(email, myEmail);
+                    Firebase reference = getOneDealReference(email, myEmail);
                     reference.setValue(online);
                 }
 
