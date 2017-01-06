@@ -89,12 +89,14 @@ public class DealsActivity extends AppCompatActivity implements DealsView, OnIte
     @Override
     protected void onPause() {
         presenter.onPause();
+        adapter.clear();
         super.onPause();
     }
 
     @Override
     protected void onDestroy() {
         presenter.onDestroy();
+        adapter.clear();
         super.onDestroy();
     }
 

@@ -65,6 +65,10 @@ public class DealsListAdapter extends RecyclerView.Adapter<DealsListAdapter.View
         }
     }
 
+    public void clear(){
+        deals = null;
+    }
+
     @Override
     public int getItemCount() {
         return deals.size();
