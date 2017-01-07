@@ -31,7 +31,7 @@ ext {
     supportLibraryVersion = '23.4.0'
     cardViewVersion = '21.0.+'
 
-    circleImageViewVersion = '2.0.0'
+    circleImageViewVersion = '2.1.0'
     firebaseClientVersion = '2.5.0'
     butterknifeVersion = '7.0.1'
     eventbusVersion = '3.0.0'
