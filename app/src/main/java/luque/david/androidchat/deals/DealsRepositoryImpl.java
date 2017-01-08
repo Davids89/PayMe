@@ -68,11 +68,13 @@ public class DealsRepositoryImpl implements DealsRepository {
         String email = (String) dataSnapshot.child("dealId").getValue();
         String name = (String) dataSnapshot.child("name").getValue();
         String price = (String) dataSnapshot.child("amount").getValue();
+        String info = (String) dataSnapshot.child("info").getValue();
 
         Deal deal = new Deal();
         deal.setAmount(price);
         deal.setName(name);
         deal.setDealId(email);
+        deal.setInfo(info);
 
         post(eventType, deal);
     }

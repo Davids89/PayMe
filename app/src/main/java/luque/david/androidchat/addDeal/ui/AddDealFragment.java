@@ -8,7 +8,9 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -25,16 +27,15 @@ import luque.david.androidchat.addDeal.AddDealPresenterImpl;
 public class AddDealFragment extends DialogFragment implements AddDealView, DialogInterface.OnShowListener {
 
 
+    AddDealPresenter presenter;
     @Bind(R.id.editTxtName)
     EditText editTxtName;
-
     @Bind(R.id.editTxtPrice)
     EditText editTxtPrice;
-
+    @Bind(R.id.editTxtInfo)
+    EditText editTxtInfo;
     @Bind(R.id.progressBar)
     ProgressBar progressBar;
-
-    AddDealPresenter presenter;
 
     public AddDealFragment() {
         // Required empty public constructor
@@ -72,20 +73,22 @@ public class AddDealFragment extends DialogFragment implements AddDealView, Dial
 
     @Override
     public void onShow(DialogInterface dialogInterface) {
-        final AlertDialog dialog = (AlertDialog)getDialog();
+        final AlertDialog dialog = (AlertDialog) getDialog();
 
-        if(dialog != null){
+        if (dialog != null) {
             Button positiveButton = dialog.getButton(Dialog.BUTTON_POSITIVE);
             Button negativeButton = dialog.getButton(Dialog.BUTTON_NEGATIVE);
 
-            positiveButton.setOnClickListener(new View.OnClickListener(){
+            positiveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    presenter.addDeal(editTxtName.getText().toString(), editTxtPrice.getText().toString());
+                    presenter.addDeal(editTxtName.getText().toString(),
+                            editTxtPrice.getText().toString(),
+                            editTxtInfo.getText().toString());
                 }
             });
 
-            negativeButton.setOnClickListener(new View.OnClickListener(){
+            negativeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     dismiss();
@@ -133,6 +136,4 @@ public class AddDealFragment extends DialogFragment implements AddDealView, Dial
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
-
-
 }

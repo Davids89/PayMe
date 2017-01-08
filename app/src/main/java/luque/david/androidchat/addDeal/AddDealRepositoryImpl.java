@@ -30,7 +30,7 @@ public class AddDealRepositoryImpl implements AddDealRepository {
     }
 
     @Override
-    public void createDeal(String name, String price) {
+    public void createDeal(String name, String price, String info) {
 
         final DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy_HH:mm:ss");
         final Date date = new Date();
@@ -41,6 +41,7 @@ public class AddDealRepositoryImpl implements AddDealRepository {
         newDeal.setDealId(dealId);
         newDeal.setName(name);
         newDeal.setAmount(price);
+        newDeal.setInfo(info);
 
         Firebase dealsReference = helper.getDealsReference(dealId);
         dealsReference.push().setValue(newDeal);

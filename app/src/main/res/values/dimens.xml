@@ -4,4 +4,5 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="contact_image_size">48dp</dimen>
+    <dimen name="listElement_title">17sp</dimen>
 </resources>
