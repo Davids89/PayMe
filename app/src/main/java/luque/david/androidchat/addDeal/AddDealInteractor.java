@@ -5,5 +5,5 @@ package luque.david.androidchat.addDeal;
  */
 
 public interface AddDealInteractor {
-    void createDeal(String name, String price);
+    void createDeal(String name, String price, String info);
 }

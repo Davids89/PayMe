@@ -10,6 +10,6 @@ public interface AddDealPresenter {
     void onShow();
     void onDestroy();
 
-    void addDeal(String name, String price);
+    void addDeal(String name, String price, String info);
     void onEventMainThread(AddDealEvents event);
 }

@@ -26,19 +26,20 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/deal_name"
-                android:textSize="30sp"
-                />
+            <include layout="@layout/element_data_list" />
 
-            <TextView
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha="0.5"
+                android:background="@android:color/darker_gray"/>
+
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/deal_name"
-                android:id="@+id/deal_amount"
-                />
+                android:text="Usuarios"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/ic_users"/>
         </LinearLayout>
 
     </LinearLayout>

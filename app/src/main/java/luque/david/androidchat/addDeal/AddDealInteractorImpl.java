@@ -13,7 +13,7 @@ public class AddDealInteractorImpl implements AddDealInteractor{
     }
 
     @Override
-    public void createDeal(String name, String price) {
-        repository.createDeal(name, price);
+    public void createDeal(String name, String price, String info) {
+        repository.createDeal(name, price, info);
     }
 }
