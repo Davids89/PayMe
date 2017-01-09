@@ -28,6 +28,12 @@
 
             <include layout="@layout/element_data_list" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtInfo"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"

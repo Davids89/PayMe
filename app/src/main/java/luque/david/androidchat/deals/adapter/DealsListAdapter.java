@@ -38,34 +38,36 @@ public class DealsListAdapter extends RecyclerView.Adapter<DealsListAdapter.View
         Deal deal = deals.get(position);
         String name = deal.getName();
         String amount = deal.getAmount();
+        String info = deal.getInfo();
 
         holder.dealName.setText(name);
         holder.dealAmount.setText(amount);
+        holder.txtInfo.setText(info);
     }
 
-    public void add(Deal deal){
-        if(!deals.contains(deal)){
+    public void add(Deal deal) {
+        if (!deals.contains(deal)) {
             deals.add(deal);
             notifyDataSetChanged();
         }
     }
 
-    public void update(Deal deal){
-        if(deals.contains(deal)){
+    public void update(Deal deal) {
+        if (deals.contains(deal)) {
             int index = deals.indexOf(deal);
             deals.set(index, deal);
             notifyDataSetChanged();
         }
     }
 
-    public void delete(Deal deal){
-        if(deals.contains(deal)){
+    public void delete(Deal deal) {
+        if (deals.contains(deal)) {
             deals.remove(deal);
             notifyDataSetChanged();
         }
     }
 
-    public void clear(){
+    public void clear() {
         deals = null;
     }
 
@@ -80,6 +82,8 @@ public class DealsListAdapter extends RecyclerView.Adapter<DealsListAdapter.View
         TextView dealName;
         @Bind(R.id.deal_amount)
         TextView dealAmount;
+        @Bind(R.id.txtInfo)
+        TextView txtInfo;
 
         private View view;
 
@@ -89,15 +93,15 @@ public class DealsListAdapter extends RecyclerView.Adapter<DealsListAdapter.View
             this.view = itemView;
         }
 
-        private void setClickListener(final Deal deal, final OnItemClickListener onItemClickListener){
-            view.setOnClickListener(new View.OnClickListener(){
+        private void setClickListener(final Deal deal, final OnItemClickListener onItemClickListener) {
+            view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     onItemClickListener.onItemClick(deal);
                 }
             });
 
-            view.setOnLongClickListener(new View.OnLongClickListener(){
+            view.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
                     onItemClickListener.onItemLongClick(deal);
