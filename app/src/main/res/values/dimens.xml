@@ -5,4 +5,5 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="contact_image_size">48dp</dimen>
     <dimen name="listElement_title">17sp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
 </resources>

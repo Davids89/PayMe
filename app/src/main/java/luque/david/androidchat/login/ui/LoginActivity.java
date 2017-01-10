@@ -15,9 +15,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import luque.david.androidchat.R;
-import luque.david.androidchat.deals.ui.DealsActivity;
 import luque.david.androidchat.login.LoginPresenter;
 import luque.david.androidchat.login.LoginPresenterImpl;
+import luque.david.androidchat.main.ui.MainActivity;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
 
@@ -102,7 +102,11 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void navigateToMainScreen() {
-        startActivity(new Intent(this, DealsActivity.class));
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_NEW_TASK
+                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     @Override
