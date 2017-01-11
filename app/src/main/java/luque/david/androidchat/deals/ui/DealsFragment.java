@@ -17,6 +17,7 @@ import butterknife.OnClick;
 import luque.david.androidchat.R;
 import luque.david.androidchat.addDeal.ui.AddDealFragment;
 import luque.david.androidchat.deals.DealsPresenter;
+import luque.david.androidchat.deals.DealsPresenterImpl;
 import luque.david.androidchat.deals.adapter.DealsListAdapter;
 import luque.david.androidchat.deals.adapter.OnItemClickListener;
 import luque.david.androidchat.entities.Deal;
@@ -45,6 +46,9 @@ public class DealsFragment extends Fragment implements OnItemClickListener, Deal
         ButterKnife.bind(this, view);
         setupAdapter();
         setupRecyclerView();
+
+        presenter = new DealsPresenterImpl(this);
+        presenter.onCreate();
         return view;
     }
 
@@ -58,6 +62,26 @@ public class DealsFragment extends Fragment implements OnItemClickListener, Deal
     private void setupRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onResume() {
+        presenter.onResume();
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        presenter.onPause();
+        adapter.clear();
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        presenter.onDestroy();
+        adapter.clear();
+        super.onDestroy();
     }
 
     @Override

@@ -12,11 +12,14 @@ import android.view.MenuItem;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import luque.david.androidchat.R;
+import luque.david.androidchat.addDeal.ui.AddDealFragment;
 import luque.david.androidchat.deals.DealsPresenter;
 import luque.david.androidchat.deals.ui.DealsFragment;
 import luque.david.androidchat.login.ui.LoginActivity;
 import luque.david.androidchat.main.ui.adapter.MainSectionsPagerAdapter;
+import luque.david.androidchat.payments.PaymentFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupAdapter() {
-        Fragment[] fragments = new Fragment[]{new DealsFragment(), new DealsFragment()};
+        Fragment[] fragments = new Fragment[]{new DealsFragment(), new PaymentFragment()};
         String[] titles = new String[]{getString(R.string.main_header_mypays), getString(R.string.main_header_mydebts)};
 
         MainSectionsPagerAdapter adapter =
@@ -67,5 +70,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick(R.id.fab)
+    void addDeal(){
+        new AddDealFragment().show(getSupportFragmentManager(), getString(R.string.adddeal_message_title));
     }
 }
