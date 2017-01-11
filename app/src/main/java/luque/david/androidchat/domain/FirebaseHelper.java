@@ -82,23 +82,10 @@ public class FirebaseHelper {
 
 
     public void SignOff(){
-        notifyContactsOfConnectionChange(User.OFFLINE, true);
-    }
-
-    private void notifyContactsOfConnectionChange(final boolean online, final boolean singoff) {
-        final String myEmail = getAuthUserEmail();
         getMyDealsReference().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot child : dataSnapshot.getChildren()){
-                    String email = child.getKey();
-                    Firebase reference = getOneDealReference(email, myEmail);
-                    reference.setValue(online);
-                }
-
-                if(singoff){
-                    dataReference.unauth();
-                }
+                dataReference.unauth();
             }
 
             @Override

@@ -1,7 +1,5 @@
 package luque.david.androidchat.login;
 
-import android.util.Log;
-
 import com.firebase.client.AuthData;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
