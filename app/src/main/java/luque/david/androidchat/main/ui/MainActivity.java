@@ -16,8 +16,13 @@ import butterknife.OnClick;
 import luque.david.androidchat.R;
 import luque.david.androidchat.addDeal.ui.AddDealFragment;
 import luque.david.androidchat.deals.DealsPresenter;
+import luque.david.androidchat.deals.DealsPresenterImpl;
 import luque.david.androidchat.deals.ui.DealsFragment;
+import luque.david.androidchat.deals.ui.DealsView;
 import luque.david.androidchat.login.ui.LoginActivity;
+import luque.david.androidchat.main.MainPresenter;
+import luque.david.androidchat.main.MainPresenterImpl;
+import luque.david.androidchat.main.MainRepository;
 import luque.david.androidchat.main.ui.adapter.MainSectionsPagerAdapter;
 import luque.david.androidchat.payments.PaymentFragment;
 
@@ -30,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.container)
     ViewPager viewPager;
 
-    private DealsPresenter presenter;
+    private MainPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         setupAdapter();
+
+        presenter = new MainPresenterImpl();
     }
 
     private void setupAdapter() {
@@ -62,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.action_logout) {
-            presenter.signOff();
+            presenter.singOff();
             Intent intent = new Intent(this, LoginActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK
                     | Intent.FLAG_ACTIVITY_CLEAR_TASK);
