@@ -1,4 +1,4 @@
-package luque.david.androidchat.deals.ui;
+package luque.david.androidchat.listDeals.ui;
 
 import luque.david.androidchat.entities.Deal;
 
@@ -6,7 +6,7 @@ import luque.david.androidchat.entities.Deal;
  * Created by david on 30/9/16.
  */
 
-public interface DealsView {
+public interface ListDealsView {
     void selectDeal();
     void onDealAdded(Deal deal);
     void onDealChanged(Deal deal);

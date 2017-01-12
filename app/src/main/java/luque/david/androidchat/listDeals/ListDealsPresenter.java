@@ -1,12 +1,12 @@
-package luque.david.androidchat.deals;
+package luque.david.androidchat.listDeals;
 
-import luque.david.androidchat.deals.event.DealsListEvent;
+import luque.david.androidchat.listDeals.event.DealsListEvent;
 
 /**
  * Created by david on 30/9/16.
  */
 
-public interface DealsPresenter {
+public interface ListDealsPresenter {
 
     void onPause();
     void onResume();

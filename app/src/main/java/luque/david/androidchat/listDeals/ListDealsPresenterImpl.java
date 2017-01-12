@@ -1,9 +1,9 @@
-package luque.david.androidchat.deals;
+package luque.david.androidchat.listDeals;
 
 import org.greenrobot.eventbus.Subscribe;
 
-import luque.david.androidchat.deals.event.DealsListEvent;
-import luque.david.androidchat.deals.ui.DealsView;
+import luque.david.androidchat.listDeals.event.DealsListEvent;
+import luque.david.androidchat.listDeals.ui.ListDealsView;
 import luque.david.androidchat.entities.Deal;
 import luque.david.androidchat.lib.EventBus;
 import luque.david.androidchat.lib.GreenRobotEventBus;
@@ -12,14 +12,14 @@ import luque.david.androidchat.lib.GreenRobotEventBus;
  * Created by david on 30/9/16.
  */
 
-public class DealsPresenterImpl implements DealsPresenter {
+public class ListDealsPresenterImpl implements ListDealsPresenter {
 
-    private DealsInteractor interactor;
+    private ListDealsInteractor interactor;
     private EventBus eventBus;
-    private DealsView dealsView;
+    private ListDealsView dealsView;
 
-    public DealsPresenterImpl(DealsView view) {
-        this.interactor = new DealsInteractorImpl();
+    public ListDealsPresenterImpl(ListDealsView view) {
+        this.interactor = new ListDealsInteractorImpl();
         this.eventBus = GreenRobotEventBus.getInstance();
         this.dealsView = view;
     }

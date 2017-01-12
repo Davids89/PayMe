@@ -1,10 +1,10 @@
-package luque.david.androidchat.deals;
+package luque.david.androidchat.listDeals;
 
 /**
  * Created by david on 30/9/16.
  */
 
-public interface DealsRepository {
+public interface ListDealsRepository {
 
     void signOff();
     void subscribeToDealsListEvents();

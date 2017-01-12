@@ -15,16 +15,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import luque.david.androidchat.R;
 import luque.david.androidchat.addDeal.ui.AddDealFragment;
-import luque.david.androidchat.deals.DealsPresenter;
-import luque.david.androidchat.deals.DealsPresenterImpl;
-import luque.david.androidchat.deals.ui.DealsFragment;
-import luque.david.androidchat.deals.ui.DealsView;
+import luque.david.androidchat.listDeals.ui.ListDealsFragment;
 import luque.david.androidchat.login.ui.LoginActivity;
 import luque.david.androidchat.main.MainPresenter;
 import luque.david.androidchat.main.MainPresenterImpl;
-import luque.david.androidchat.main.MainRepository;
 import luque.david.androidchat.main.ui.adapter.MainSectionsPagerAdapter;
-import luque.david.androidchat.payments.PaymentFragment;
+import luque.david.androidchat.payments.ui.PaymentFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupAdapter() {
-        Fragment[] fragments = new Fragment[]{new DealsFragment(), new PaymentFragment()};
+        Fragment[] fragments = new Fragment[]{new ListDealsFragment(), new PaymentFragment()};
         String[] titles = new String[]{getString(R.string.main_header_mypays), getString(R.string.main_header_mydebts)};
 
         MainSectionsPagerAdapter adapter =

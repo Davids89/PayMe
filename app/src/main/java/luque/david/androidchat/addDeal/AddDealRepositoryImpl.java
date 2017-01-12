@@ -7,7 +7,10 @@ import com.firebase.client.ValueEventListener;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import luque.david.androidchat.addDeal.events.AddDealEvents;
 import luque.david.androidchat.domain.FirebaseHelper;
@@ -42,6 +45,10 @@ public class AddDealRepositoryImpl implements AddDealRepository {
         newDeal.setName(name);
         newDeal.setAmount(price);
         newDeal.setInfo(info);
+
+        Map<String, Boolean> contacts = new HashMap<String, Boolean>();
+        contacts.put("bb@bb_com", false);
+        newDeal.setContacts(contacts);
 
         Firebase dealsReference = helper.getDealsReference(dealId);
         dealsReference.push().setValue(newDeal);

@@ -1,4 +1,4 @@
-package luque.david.androidchat.deals.ui;
+package luque.david.androidchat.listDeals.ui;
 
 
 import android.os.Bundle;
@@ -13,28 +13,26 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import luque.david.androidchat.R;
-import luque.david.androidchat.addDeal.ui.AddDealFragment;
-import luque.david.androidchat.deals.DealsPresenter;
-import luque.david.androidchat.deals.DealsPresenterImpl;
-import luque.david.androidchat.deals.adapter.DealsListAdapter;
-import luque.david.androidchat.deals.adapter.OnItemClickListener;
+import luque.david.androidchat.listDeals.ListDealsPresenter;
+import luque.david.androidchat.listDeals.ListDealsPresenterImpl;
+import luque.david.androidchat.listDeals.adapter.DealsListAdapter;
+import luque.david.androidchat.listDeals.adapter.OnItemClickListener;
 import luque.david.androidchat.entities.Deal;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DealsFragment extends Fragment implements OnItemClickListener, DealsView{
+public class ListDealsFragment extends Fragment implements OnItemClickListener, ListDealsView {
 
 
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
 
-    private DealsPresenter presenter;
+    private ListDealsPresenter presenter;
     private DealsListAdapter adapter;
 
-    public DealsFragment() {
+    public ListDealsFragment() {
         // Required empty public constructor
     }
 
@@ -47,7 +45,7 @@ public class DealsFragment extends Fragment implements OnItemClickListener, Deal
         setupAdapter();
         setupRecyclerView();
 
-        presenter = new DealsPresenterImpl(this);
+        presenter = new ListDealsPresenterImpl(this);
         presenter.onCreate();
         return view;
     }

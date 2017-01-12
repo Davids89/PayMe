@@ -1,10 +1,10 @@
-package luque.david.androidchat.deals;
+package luque.david.androidchat.listDeals;
 
 /**
  * Created by david on 30/9/16.
  */
 
-public interface DealsInteractor {
+public interface ListDealsInteractor {
     void signOff();
     void subscribe();
     void unsubscribe();

@@ -1,4 +1,4 @@
-package luque.david.androidchat.deals.adapter;
+package luque.david.androidchat.listDeals.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

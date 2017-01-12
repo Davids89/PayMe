@@ -1,4 +1,4 @@
-package luque.david.androidchat.deals.event;
+package luque.david.androidchat.listDeals.event;
 
 import luque.david.androidchat.entities.Deal;
 
