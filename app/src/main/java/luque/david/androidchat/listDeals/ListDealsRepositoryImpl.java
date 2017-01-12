@@ -65,7 +65,7 @@ public class ListDealsRepositoryImpl implements ListDealsRepository {
     }
 
     private void handleDealsEvent(DataSnapshot dataSnapshot, int eventType) {
-        String email = (String) dataSnapshot.child("dealId").getValue();
+        String id = (String) dataSnapshot.getKey();
         String name = (String) dataSnapshot.child("name").getValue();
         String price = (String) dataSnapshot.child("amount").getValue();
         String info = (String) dataSnapshot.child("info").getValue();
@@ -73,7 +73,7 @@ public class ListDealsRepositoryImpl implements ListDealsRepository {
         Deal deal = new Deal();
         deal.setAmount(price);
         deal.setName(name);
-        deal.setDealId(email);
+        deal.setDealId(id);
         deal.setInfo(info);
 
         post(eventType, deal);

@@ -37,11 +37,9 @@ public class AddDealRepositoryImpl implements AddDealRepository {
 
         final DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy_HH:mm:ss");
         final Date date = new Date();
-        final String dealId = helper.getAuthUserEmail().replace('.', '_');
 
         Deal newDeal = new Deal();
 
-        newDeal.setDealId(dealId);
         newDeal.setName(name);
         newDeal.setAmount(price);
         newDeal.setInfo(info);
@@ -50,7 +48,7 @@ public class AddDealRepositoryImpl implements AddDealRepository {
         contacts.put("bb@bb_com", false);
         newDeal.setContacts(contacts);
 
-        Firebase dealsReference = helper.getDealsReference(dealId);
+        Firebase dealsReference = helper.getMyDealsReference();
         dealsReference.push().setValue(newDeal);
 
         dealsReference.addListenerForSingleValueEvent(new ValueEventListener() {
