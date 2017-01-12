@@ -1,4 +1,4 @@
-package luque.david.androidchat.deals.adapter;
+package luque.david.androidchat.payments.adapter;
 
 import luque.david.androidchat.entities.Deal;
 

@@ -95,11 +95,7 @@ public class LoginRepositoryImpl implements LoginRepository {
         myUserReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                User currentUser = dataSnapshot.getValue(User.class);
-
-                if(currentUser != null){
-                    postEvent(LoginEvent.onSignInSuccess);
-                }
+                postEvent(LoginEvent.onSignInSuccess);
             }
 
             @Override

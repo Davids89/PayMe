@@ -4,7 +4,9 @@ import com.firebase.client.AuthData;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
+import com.firebase.client.core.view.QuerySpec;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -74,10 +76,12 @@ public class FirebaseHelper {
         return getDealsReference(getAuthUserEmail());
     }
 
-    public Firebase getOneDealReference(String mainEmail, String childEmail){
-        //TODO: We have to change the way to get one deal
-        String childKey = childEmail.replace(".", "_");
-        return getUserReference(mainEmail).child(DEALS_PATH).child(childKey);
+    public Firebase getMyPaymentsReference(){
+       return getPaymentReference(getAuthUserEmail());
+    }
+
+    private Firebase getPaymentReference(String email) {
+        return dataReference.getRoot().child(DEALS_PATH);
     }
 
 

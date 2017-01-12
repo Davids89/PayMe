@@ -1,15 +1,15 @@
-package luque.david.androidchat.deals;
+package luque.david.androidchat.listDeals;
 
 /**
  * Created by david on 30/9/16.
  */
 
-public class DealsInteractorImpl implements DealsInteractor {
+public class ListDealsInteractorImpl implements ListDealsInteractor {
 
-    private DealsRepository repository;
+    private ListDealsRepository repository;
 
-    public DealsInteractorImpl() {
-        this.repository = new DealsRepositoryImpl();
+    public ListDealsInteractorImpl() {
+        this.repository = new ListDealsRepositoryImpl();
     }
 
     @Override

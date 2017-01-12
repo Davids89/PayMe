@@ -1,4 +1,4 @@
-package luque.david.androidchat.deals.adapter;
+package luque.david.androidchat.payments.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,12 +17,12 @@ import luque.david.androidchat.entities.Deal;
  * Created by david on 28/10/16.
  */
 
-public class DealsListAdapter extends RecyclerView.Adapter<DealsListAdapter.ViewHolder> {
+public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHolder> {
 
     private List<Deal> deals;
     private OnItemClickListener onItemClickListener;
 
-    public DealsListAdapter(List<Deal> deals, OnItemClickListener onItemClickListener) {
+    public PaymentAdapter(List<Deal> deals, OnItemClickListener onItemClickListener) {
         this.deals = deals;
         this.onItemClickListener = onItemClickListener;
     }
@@ -53,17 +53,20 @@ public class DealsListAdapter extends RecyclerView.Adapter<DealsListAdapter.View
     }
 
     public void update(Deal deal) {
-        if (deals.contains(deal)) {
-            int index = deals.indexOf(deal);
-            deals.set(index, deal);
-            notifyDataSetChanged();
+        for(int i = 0; i < deals.size(); i++){
+            if(deals.get(i).getDealId().equals(deal.getDealId())){
+                deals.set(i, deal);
+                notifyDataSetChanged();
+            }
         }
     }
 
     public void delete(Deal deal) {
-        if (deals.contains(deal)) {
-            deals.remove(deal);
-            notifyDataSetChanged();
+        for(int i = 0; i < deals.size(); i++){
+            if(deals.get(i).equals(deal)){
+                deals.remove(deal);
+                notifyDataSetChanged();
+            }
         }
     }
 

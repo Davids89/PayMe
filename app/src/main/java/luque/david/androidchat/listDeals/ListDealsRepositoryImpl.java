@@ -1,10 +1,10 @@
-package luque.david.androidchat.deals;
+package luque.david.androidchat.listDeals;
 
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.FirebaseError;
 
-import luque.david.androidchat.deals.event.DealsListEvent;
+import luque.david.androidchat.listDeals.event.DealsListEvent;
 import luque.david.androidchat.domain.FirebaseHelper;
 import luque.david.androidchat.entities.Deal;
 import luque.david.androidchat.lib.EventBus;
@@ -14,13 +14,13 @@ import luque.david.androidchat.lib.GreenRobotEventBus;
  * Created by david on 30/9/16.
  */
 
-public class DealsRepositoryImpl implements DealsRepository {
+public class ListDealsRepositoryImpl implements ListDealsRepository {
 
     private FirebaseHelper helper;
     private ChildEventListener dealsEventListener;
     private EventBus eventBus;
 
-    public DealsRepositoryImpl() {
+    public ListDealsRepositoryImpl() {
         this.helper = FirebaseHelper.getInstance();
         this.eventBus = GreenRobotEventBus.getInstance();
     }

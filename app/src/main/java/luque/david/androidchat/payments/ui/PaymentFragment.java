@@ -1,4 +1,4 @@
-package luque.david.androidchat.deals.ui;
+package luque.david.androidchat.payments.ui;
 
 
 import android.os.Bundle;
@@ -8,34 +8,34 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import luque.david.androidchat.R;
-import luque.david.androidchat.addDeal.ui.AddDealFragment;
-import luque.david.androidchat.deals.DealsPresenter;
-import luque.david.androidchat.deals.DealsPresenterImpl;
-import luque.david.androidchat.deals.adapter.DealsListAdapter;
-import luque.david.androidchat.deals.adapter.OnItemClickListener;
 import luque.david.androidchat.entities.Deal;
+import luque.david.androidchat.payments.PaymentPresenter;
+import luque.david.androidchat.payments.PaymentPresenterImpl;
+import luque.david.androidchat.payments.adapter.OnItemClickListener;
+import luque.david.androidchat.payments.adapter.PaymentAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DealsFragment extends Fragment implements OnItemClickListener, DealsView{
+public class PaymentFragment extends Fragment implements PaymentView, OnItemClickListener {
 
-
+    @Bind(R.id.progressBar)
+    ProgressBar progressBar;
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
+    private PaymentPresenter presenter;
+    private PaymentAdapter adapter;
 
-    private DealsPresenter presenter;
-    private DealsListAdapter adapter;
-
-    public DealsFragment() {
+    public PaymentFragment() {
         // Required empty public constructor
+        presenter = new PaymentPresenterImpl(this);
     }
 
 
@@ -44,24 +44,21 @@ public class DealsFragment extends Fragment implements OnItemClickListener, Deal
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_deals_list, container, false);
         ButterKnife.bind(this, view);
+
         setupAdapter();
         setupRecyclerView();
-
-        presenter = new DealsPresenterImpl(this);
         presenter.onCreate();
         return view;
-    }
-
-    private void setupAdapter() {
-
-        ArrayList<Deal> deals = new ArrayList<Deal>();
-
-        adapter = new DealsListAdapter(deals, this);
     }
 
     private void setupRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+    }
+
+    private void setupAdapter() {
+        ArrayList<Deal> deals = new ArrayList<Deal>();
+        adapter = new PaymentAdapter(deals, this);
     }
 
     @Override
@@ -73,21 +70,28 @@ public class DealsFragment extends Fragment implements OnItemClickListener, Deal
     @Override
     public void onPause() {
         presenter.onPause();
-        adapter.clear();
         super.onPause();
     }
 
     @Override
     public void onDestroy() {
         presenter.onDestroy();
-        adapter.clear();
         super.onDestroy();
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
+    public void onPaymentAdded(Deal deal) {
+        adapter.add(deal);
+    }
+
+    @Override
+    public void onPaymentUpdated(Deal deal) {
+        adapter.update(deal);
+    }
+
+    @Override
+    public void onPaymentRemoved(Deal deal) {
+        adapter.delete(deal);
     }
 
     @Override
@@ -101,22 +105,8 @@ public class DealsFragment extends Fragment implements OnItemClickListener, Deal
     }
 
     @Override
-    public void selectDeal() {
-
-    }
-
-    @Override
-    public void onDealAdded(Deal deal) {
-        adapter.add(deal);
-    }
-
-    @Override
-    public void onDealChanged(Deal deal) {
-        adapter.update(deal);
-    }
-
-    @Override
-    public void onDealRemoved(Deal deal) {
-        adapter.delete(deal);
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 }
