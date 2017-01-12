@@ -1,14 +1,11 @@
 package luque.david.androidchat.payments;
 
-import android.util.Log;
 
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+import com.firebase.client.ValueEventListener;
 
 import luque.david.androidchat.domain.FirebaseHelper;
 import luque.david.androidchat.entities.Deal;
@@ -65,18 +62,27 @@ public class PaymentRepositoryImpl implements PaymentRepository {
         }
     }
 
-    private void handlePayments(DataSnapshot dataSnapshot, int onPaymentRemoved) {
-
-        ArrayList<String> contacts = (ArrayList<String>) dataSnapshot.child("contacts").getValue();
+    private void handlePayments(DataSnapshot dataSnapshot, int eventType) {
 
         String userEmail = helper.getAuthUserEmail();
+        userEmail = userEmail.replace('.','_');
 
-        if(contacts != null){
-            if(Arrays.asList(contacts).contains(userEmail)){
-                Log.wtf("PAYMENTREPOSITORY", "ESTA METIDO");
+        for(DataSnapshot data : dataSnapshot.getChildren()){
+            final Deal deal = data.getValue(Deal.class);
+            if(deal.getContacts() != null){
+                Boolean isMine = deal.getContacts().get(userEmail);
+                if(isMine != null){
+                    post(eventType, deal);
+                }
             }
         }
+    }
 
+    private void post(int eventType, Deal deal){
+        PaymentEvent event = new PaymentEvent();
+        event.setEventType(eventType);
+        event.setDeal(deal);
+        eventBus.post(event);
     }
 
     @Override

@@ -22,6 +22,18 @@ public class Deal {
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        Boolean equal = false;
+
+        if(o instanceof Deal){
+            Deal deal = (Deal)o;
+            equal = this.getDealId().equals(deal.getDealId());
+        }
+
+        return equal;
+    }
+
     public String getName() {
         return name;
     }

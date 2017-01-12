@@ -2,6 +2,7 @@ package luque.david.androidchat.payments;
 
 import org.greenrobot.eventbus.Subscribe;
 
+import luque.david.androidchat.entities.Deal;
 import luque.david.androidchat.lib.EventBus;
 import luque.david.androidchat.lib.GreenRobotEventBus;
 import luque.david.androidchat.payments.event.PaymentEvent;
@@ -47,5 +48,18 @@ public class PaymentPresenterImpl implements PaymentPresenter {
     @Override
     public void onMainThread(PaymentEvent event) {
 
+        Deal deal = event.getDeal();
+
+        switch (event.getEventType()){
+            case PaymentEvent.onPaymentAdded:
+                view.onPaymentAdded(deal);
+                break;
+            case PaymentEvent.onPaymentUpdated:
+                view.onPaymentUpdated(deal);
+                break;
+            case PaymentEvent.onPaymentRemoved:
+                view.onPaymentRemoved(deal);
+                break;
+        }
     }
 }
