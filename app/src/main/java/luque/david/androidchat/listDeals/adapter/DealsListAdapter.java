@@ -53,17 +53,20 @@ public class DealsListAdapter extends RecyclerView.Adapter<DealsListAdapter.View
     }
 
     public void update(Deal deal) {
-        if (deals.contains(deal)) {
-            int index = deals.indexOf(deal);
-            deals.set(index, deal);
-            notifyDataSetChanged();
+        for(int i = 0; i < deals.size(); i++){
+            if(deals.get(i).getDealId().equals(deal.getDealId())){
+                deals.set(i, deal);
+                notifyDataSetChanged();
+            }
         }
     }
 
     public void delete(Deal deal) {
-        if (deals.contains(deal)) {
-            deals.remove(deal);
-            notifyDataSetChanged();
+        for(int i = 0; i < deals.size(); i++){
+            if(deals.get(i).equals(deal)){
+                deals.remove(deal);
+                notifyDataSetChanged();
+            }
         }
     }
 

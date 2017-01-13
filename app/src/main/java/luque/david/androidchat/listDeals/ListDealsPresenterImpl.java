@@ -67,6 +67,13 @@ public class ListDealsPresenterImpl implements ListDealsPresenter {
         switch (event.getEventType()){
             case DealsListEvent.onDealAdded:
                 dealsView.onDealAdded(deal);
+                break;
+            case DealsListEvent.onDealUpdated:
+                dealsView.onDealChanged(deal);
+                break;
+            case DealsListEvent.onDealRemoved:
+                dealsView.onDealRemoved(deal);
+                break;
         }
     }
 }
