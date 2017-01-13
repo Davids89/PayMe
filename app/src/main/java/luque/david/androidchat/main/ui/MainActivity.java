@@ -2,6 +2,8 @@ package luque.david.androidchat.main.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -14,7 +16,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import luque.david.androidchat.R;
-import luque.david.androidchat.addDeal.ui.AddDealFragment;
+import luque.david.androidchat.addDeal.ui.AddDealActivity;
 import luque.david.androidchat.listDeals.ui.ListDealsFragment;
 import luque.david.androidchat.login.ui.LoginActivity;
 import luque.david.androidchat.main.MainPresenter;
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabs;
     @Bind(R.id.container)
     ViewPager viewPager;
+    @Bind(R.id.main_content)
+    CoordinatorLayout mainContent;
 
     private MainPresenter presenter;
 
@@ -40,8 +44,20 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         setupAdapter();
+        getAdviceFromDealActivity();
 
         presenter = new MainPresenterImpl();
+    }
+
+    private void getAdviceFromDealActivity() {
+        Intent intent = getIntent();
+
+        if(intent.getExtras() != null){
+            Boolean advice = intent.getExtras().getBoolean("ADVICE");
+
+            if(advice)
+                Snackbar.make(mainContent, R.string.adddeal_message_added, Snackbar.LENGTH_SHORT).show();
+        }
     }
 
     private void setupAdapter() {
@@ -76,7 +92,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.fab)
-    void addDeal(){
-        new AddDealFragment().show(getSupportFragmentManager(), getString(R.string.adddeal_message_title));
+    void addDeal() {
+        Intent intent = new Intent(this, AddDealActivity.class);
+        startActivity(intent);
+        //new AddDealFragment().show(getSupportFragmentManager(), getString(R.string.adddeal_message_title));
     }
+
+
 }

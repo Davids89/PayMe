@@ -7,7 +7,7 @@ import luque.david.androidchat.addDeal.events.AddDealEvents;
  */
 
 public interface AddDealPresenter {
-    void onShow();
+    void onCreate();
     void onDestroy();
 
     void addDeal(String name, String price, String info);

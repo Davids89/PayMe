@@ -24,7 +24,7 @@ public class AddDealPresenterImpl implements AddDealPresenter {
     }
 
     @Override
-    public void onShow() {
+    public void onCreate() {
         eventBus.register(this);
     }
 
