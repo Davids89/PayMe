@@ -14,6 +14,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import luque.david.androidchat.R;
+import luque.david.androidchat.addDeal.ui.AddDealActivity;
 import luque.david.androidchat.addDeal.ui.AddDealFragment;
 import luque.david.androidchat.listDeals.ui.ListDealsFragment;
 import luque.david.androidchat.login.ui.LoginActivity;
@@ -77,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.fab)
     void addDeal(){
-        new AddDealFragment().show(getSupportFragmentManager(), getString(R.string.adddeal_message_title));
+        Intent intent = new Intent(this, AddDealActivity.class);
+        startActivity(intent);
+        //new AddDealFragment().show(getSupportFragmentManager(), getString(R.string.adddeal_message_title));
     }
 }
