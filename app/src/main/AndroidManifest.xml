@@ -19,8 +19,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".main.ui.MainActivity" />
-        <activity android:name=".addDeal.ui.AddDealActivity"
+        <activity
+            android:name=".addDeal.ui.AddDealActivity"
             android:label="@string/adddeal.message.title" />
+        <activity android:name=".dealDetails.DealDetails"
+            android:parentActivityName=".main.ui.MainActivity"/>
     </application>
 
 </manifest>

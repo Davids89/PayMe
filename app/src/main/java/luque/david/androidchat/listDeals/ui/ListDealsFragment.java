@@ -1,6 +1,7 @@
 package luque.david.androidchat.listDeals.ui;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import luque.david.androidchat.R;
+import luque.david.androidchat.dealDetails.DealDetails;
 import luque.david.androidchat.listDeals.ListDealsPresenter;
 import luque.david.androidchat.listDeals.ListDealsPresenterImpl;
 import luque.david.androidchat.listDeals.adapter.DealsListAdapter;
@@ -90,7 +92,9 @@ public class ListDealsFragment extends Fragment implements OnItemClickListener, 
 
     @Override
     public void onItemClick(Deal deal) {
-
+        Intent intent = new Intent(getActivity(), DealDetails.class);
+        intent.putExtra("NAME", deal.getName());
+        startActivity(intent);
     }
 
     @Override

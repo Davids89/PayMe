@@ -43,6 +43,8 @@ public class DealsListAdapter extends RecyclerView.Adapter<DealsListAdapter.View
         holder.dealName.setText(name);
         holder.dealAmount.setText(amount);
         holder.txtInfo.setText(info);
+
+        holder.setClickListener(deal, onItemClickListener);
     }
 
     public void add(Deal deal) {
