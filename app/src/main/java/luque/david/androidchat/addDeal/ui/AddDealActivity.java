@@ -43,9 +43,14 @@ public class AddDealActivity extends AppCompatActivity implements AddDealView {
         setContentView(R.layout.activity_add_deal);
         ButterKnife.bind(this);
 
-        setSupportActionBar(addDealToolbar);
+        setupToolbar();
 
         presenter.onCreate();
+    }
+
+    private void setupToolbar() {
+        setSupportActionBar(addDealToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
