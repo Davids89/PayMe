@@ -15,7 +15,6 @@
 
     <string name="deals.menu.action.signoff">Cerrar sesión</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="adddeal.message.title">Añadir trato</string>
     <string name="adddeal.message.add">Aceptar</string>
     <string name="adddeal.message.cancel">Cancelar</string>
@@ -27,6 +26,6 @@
     <string name="main.header.mypays">Mis pagos</string>
     <string name="main.header.mydebts">Mis deudas</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="adddeal.advice.id">ADVICE</string>
+    <string name="adddeal.advice.message">Trato creado con éxito</string>
 </resources>
