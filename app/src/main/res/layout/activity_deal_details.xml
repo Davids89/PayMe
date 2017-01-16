@@ -5,7 +5,7 @@
     android:id="@+id/activity_deal_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="luque.david.androidchat.dealDetails.DealDetails">
+    tools:context="luque.david.payme.dealDetails.DealDetails">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/deal_details_appbar"
