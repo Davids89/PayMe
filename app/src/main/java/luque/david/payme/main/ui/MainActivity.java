@@ -3,14 +3,18 @@ package luque.david.payme.main.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -24,7 +28,7 @@ import luque.david.payme.main.MainPresenterImpl;
 import luque.david.payme.main.ui.adapter.MainSectionsPagerAdapter;
 import luque.david.payme.payments.ui.PaymentFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -34,8 +38,13 @@ public class MainActivity extends AppCompatActivity {
     ViewPager viewPager;
     @Bind(R.id.main_content)
     CoordinatorLayout mainContent;
+    @Bind(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+    @Bind(R.id.nav_view)
+    NavigationView navView;
 
     private MainPresenter presenter;
+    private String[] drawerTitles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,18 +53,27 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         setupAdapter();
+        setupDrawerLayout();
         getAdviceFromDealActivity();
 
         presenter = new MainPresenterImpl();
     }
 
+    private void setupDrawerLayout() {
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.setDrawerListener(toggle);
+        toggle.syncState();
+        navView.setNavigationItemSelectedListener(this);
+    }
+
     private void getAdviceFromDealActivity() {
         Intent intent = getIntent();
 
-        if(intent.getExtras() != null){
+        if (intent.getExtras() != null) {
             Boolean advice = intent.getExtras().getBoolean("ADVICE");
 
-            if(advice)
+            if (advice)
                 Snackbar.make(mainContent, R.string.adddeal_message_added, Snackbar.LENGTH_SHORT).show();
         }
     }
@@ -99,4 +117,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        return false;
+    }
 }
