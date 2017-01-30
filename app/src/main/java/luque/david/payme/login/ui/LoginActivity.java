@@ -58,16 +58,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         super.onDestroy();
     }
 
-    @OnClick(R.id.btnSinging)
-    public void handleSinging(){
-        Log.e("AndroidChat", inputEmail.getText().toString());
-    }
-
-    @OnClick(R.id.btnSingup)
-    public void handleSingup(){
-
-    }
-
     @Override
     public void enableInputs() {
         setInputs(true);

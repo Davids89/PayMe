@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class FirebaseHelper {
     private Firebase dataReference;
-    private final static String FIREBASE_URL = "https://android-payme.firebaseio.com/";
+    private final static String FIREBASE_URL = "https://android-chat-david.firebaseio.com/";
     private final static String USERS_PATH = "users";
     private final static String DEALS_PATH = "deals";
     private final static String FRIENDS_PATH = "friends";
