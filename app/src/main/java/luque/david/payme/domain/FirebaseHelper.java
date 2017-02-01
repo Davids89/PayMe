@@ -2,11 +2,8 @@ package luque.david.payme.domain;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by David on 12/9/16.
@@ -59,6 +56,10 @@ public class FirebaseHelper {
         }
 
         return userReference;
+    }
+
+    public DatabaseReference getMyDealReference(String id){
+        return getMyDealsReference().child(id);
     }
 
     public DatabaseReference getMyUserReference(){

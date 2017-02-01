@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import luque.david.payme.R;
-import luque.david.payme.dealDetails.DealDetails;
+import luque.david.payme.dealDetails.ui.DealDetailsActivity;
 import luque.david.payme.listDeals.ListDealsPresenter;
 import luque.david.payme.listDeals.ListDealsPresenterImpl;
 import luque.david.payme.listDeals.adapter.DealsListAdapter;
@@ -92,8 +92,8 @@ public class ListDealsFragment extends Fragment implements OnItemClickListener, 
 
     @Override
     public void onItemClick(Deal deal) {
-        Intent intent = new Intent(getActivity(), DealDetails.class);
-        intent.putExtra("NAME", deal.getName());
+        Intent intent = new Intent(getActivity(), DealDetailsActivity.class);
+        intent.putExtra("ID", deal.getDealId());
         startActivity(intent);
     }
 
