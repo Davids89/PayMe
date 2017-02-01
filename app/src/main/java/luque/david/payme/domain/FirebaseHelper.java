@@ -59,7 +59,7 @@ public class FirebaseHelper {
     }
 
     public DatabaseReference getMyDealReference(String id){
-        return getMyDealsReference().child(id);
+        return getMyDealsReference().child(id).getRef();
     }
 
     public DatabaseReference getMyUserReference(){

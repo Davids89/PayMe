@@ -2,6 +2,7 @@ package luque.david.payme.dealDetails;
 
 import android.util.Log;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,11 +34,11 @@ public class DealDetailsRepositoryImpl implements DealDetailsRepository {
     public void execute(String id) {
         this.myDealReference = helper.getMyDealReference(id);
 
-        myDealReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        myDealReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Deal deal = dataSnapshot.getValue(Deal.class);
-                postSuccess(DealDetailsEvent.onDealDownloaded, deal);
+                postSuccess(DealDetailsEvent.onDealUpdated, deal);
             }
 
             @Override

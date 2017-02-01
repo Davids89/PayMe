@@ -42,11 +42,10 @@ public class DealDetailsPresenterImpl implements DealDetailsPresenter {
     @Subscribe
     public void onEventMainThread(DealDetailsEvent event) {
         switch (event.getEventType()) {
-            case DealDetailsEvent.onDealDownloaded:
+            case DealDetailsEvent.onDealUpdated:
                 Deal deal = event.getDeal();
                 view.setToolbar(deal.getName());
                 break;
         }
-
     }
 }
