@@ -3,6 +3,7 @@ package luque.david.payme.listDeals;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 
 import luque.david.payme.listDeals.event.DealsListEvent;
 import luque.david.payme.domain.FirebaseHelper;
@@ -18,11 +19,14 @@ public class ListDealsRepositoryImpl implements ListDealsRepository {
 
     private FirebaseHelper helper;
     private ChildEventListener dealsEventListener;
+    private DatabaseReference myDealsReference;
     private EventBus eventBus;
 
     public ListDealsRepositoryImpl() {
         this.helper = FirebaseHelper.getInstance();
         this.eventBus = GreenRobotEventBus.getInstance();
+        this.myDealsReference = helper.getMyDealsReference();
+
     }
 
     @Override
@@ -32,7 +36,7 @@ public class ListDealsRepositoryImpl implements ListDealsRepository {
 
     @Override
     public void subscribeToDealsListEvents() {
-        /*if(dealsEventListener == null){
+        if(dealsEventListener == null){
             dealsEventListener = new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -61,7 +65,7 @@ public class ListDealsRepositoryImpl implements ListDealsRepository {
             };
         }
 
-        helper.getMyDealsReference().addChildEventListener(dealsEventListener);*/
+        myDealsReference.addChildEventListener(dealsEventListener);
     }
 
     private void handleDealsEvent(DataSnapshot dataSnapshot, int eventType) {
@@ -88,9 +92,9 @@ public class ListDealsRepositoryImpl implements ListDealsRepository {
 
     @Override
     public void unsubscribeToDealsListEvents() {
-        /*if(dealsEventListener != null){
-            helper.getMyDealsReference().removeEventListener(dealsEventListener);
-        }*/
+        if(dealsEventListener != null){
+            myDealsReference.removeEventListener(dealsEventListener);
+        }
     }
 
     @Override
