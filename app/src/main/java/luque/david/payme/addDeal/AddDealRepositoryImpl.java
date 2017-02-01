@@ -1,9 +1,9 @@
 package luque.david.payme.addDeal;
 
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -47,18 +47,18 @@ public class AddDealRepositoryImpl implements AddDealRepository {
         contacts.put("bb@bb_com", false);
         newDeal.setContacts(contacts);
 
-        Firebase dealsReference = helper.getMyDealsReference();
+        DatabaseReference dealsReference = helper.getMyDealsReference();
         dealsReference.push().setValue(newDeal);
 
         dealsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 postSuccess();
-
             }
 
             @Override
-            public void onCancelled(FirebaseError firebaseError) {
+            public void onCancelled(DatabaseError databaseError) {
                 postError();
             }
         });
