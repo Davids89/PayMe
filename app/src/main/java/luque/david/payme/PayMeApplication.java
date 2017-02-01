@@ -2,7 +2,7 @@ package luque.david.payme;
 
 import android.app.Application;
 
-import com.firebase.client.Firebase;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * Created by David on 12/9/16.
@@ -16,7 +16,6 @@ public class PayMeApplication extends Application {
     }
 
     private void setupFirebase() {
-        Firebase.setAndroidContext(this);
-        Firebase.getDefaultConfig().setPersistenceEnabled(true);
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
     }
 }

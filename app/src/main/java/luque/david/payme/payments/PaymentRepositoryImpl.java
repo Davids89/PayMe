@@ -1,9 +1,9 @@
 package luque.david.payme.payments;
 
 
-import com.firebase.client.ChildEventListener;
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.FirebaseError;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 
 import luque.david.payme.domain.FirebaseHelper;
 import luque.david.payme.entities.Deal;
@@ -51,7 +51,7 @@ public class PaymentRepositoryImpl implements PaymentRepository {
                 }
 
                 @Override
-                public void onCancelled(FirebaseError firebaseError) {
+                public void onCancelled(DatabaseError databaseError) {
 
                 }
             };

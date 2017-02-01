@@ -1,19 +1,19 @@
 package luque.david.payme.domain;
 
-import com.firebase.client.AuthData;
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
-
-import java.util.Map;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by David on 12/9/16.
  */
 public class FirebaseHelper {
-    private Firebase dataReference;
-    private final static String FIREBASE_URL = "https://android-chat-david.firebaseio.com/";
+    private DatabaseReference dataReference;
+    private final static String FIREBASE_URL = "https://payme-ff851.firebaseio.com/";
     private final static String USERS_PATH = "users";
     private final static String DEALS_PATH = "deals";
     private final static String FRIENDS_PATH = "friends";
@@ -27,27 +27,32 @@ public class FirebaseHelper {
     }
 
     public FirebaseHelper(){
-        this.dataReference = new Firebase(FIREBASE_URL);
+        this.dataReference = FirebaseDatabase.getInstance()
+                .getReferenceFromUrl(FIREBASE_URL);
     }
 
-    public Firebase getDataReference() {
+    public FirebaseAuth getAuthReference(){
+        return FirebaseAuth.getInstance();
+    }
+
+    public DatabaseReference getDataReference() {
         return dataReference;
     }
 
     public String getAuthUserEmail(){
-        AuthData authData = dataReference.getAuth();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
         String email = null;
 
-        if(authData != null){
-            Map<String, Object> providerData = authData.getProviderData();
-            email = providerData.get("email").toString();
+        if(user != null){
+            email = user.getEmail();
         }
 
         return email;
     }
 
-    public Firebase getUserReference(String email){
-        Firebase userReference = null;
+    public DatabaseReference getUserReference(String email){
+        DatabaseReference userReference = null;
         if(email != null){
             String emailKey = email.replace(".", "_");
             userReference = dataReference.getRoot().child(USERS_PATH).child(emailKey);
@@ -56,41 +61,31 @@ public class FirebaseHelper {
         return userReference;
     }
 
-    public Firebase getMyUserReference(){
+    public DatabaseReference getMyUserReference(){
         return getUserReference(getAuthUserEmail());
     }
 
-    public Firebase getDealsReference(String email){
+    public DatabaseReference getDealsReference(String email){
 
         String key = email.replace('.', '_');
 
         return dataReference.getRoot().child(DEALS_PATH).child(key);
     }
 
-    public Firebase getMyDealsReference(){
+    public DatabaseReference getMyDealsReference(){
         return getDealsReference(getAuthUserEmail());
     }
 
-    public Firebase getMyPaymentsReference(){
+    public DatabaseReference getMyPaymentsReference(){
        return getPaymentReference(getAuthUserEmail());
     }
 
-    private Firebase getPaymentReference(String email) {
+    private DatabaseReference getPaymentReference(String email) {
         return dataReference.getRoot().child(DEALS_PATH);
     }
 
 
     public void SignOff(){
-        getMyDealsReference().addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                dataReference.unauth();
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
+        FirebaseAuth.getInstance().signOut();
     }
 }

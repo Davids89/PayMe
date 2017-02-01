@@ -1,14 +1,11 @@
 package luque.david.payme.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.util.Date;
 import java.util.Map;
 
 /**
  * Created by david on 26/10/16.
  */
-@JsonIgnoreProperties({"sentByMe"})
 public class Deal {
 
     private String dealId;

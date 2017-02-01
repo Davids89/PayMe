@@ -34,7 +34,6 @@ dependencies {
     compile "com.android.support:design:$rootProject.ext.supportLibraryVersion"
     compile "com.android.support:support-v4:$rootProject.ext.supportLibraryVersion"
 
-    compile "com.firebase:firebase-client-android:$rootProject.ext.firebaseClientVersion"
     compile "de.hdodenhof:circleimageview:$rootProject.ext.circleImageViewVersion"
     compile "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
     compile "com.github.bumptech.glide:glide:$rootProject.ext.glideVersion"
@@ -42,4 +41,11 @@ dependencies {
     compile "com.android.support:support-v4:$rootProject.ext.supportLibraryVersion"
     testCompile "junit:junit:$rootProject.ext.jUnitVersion"
     compile 'com.android.support:support-v4:23.4.0'
+
+    compile "com.google.firebase:firebase-core:$rootProject.ext.firebaseClientVersion"
+    compile "com.google.firebase:firebase-database:$rootProject.ext.firebaseClientVersion"
+    compile "com.google.firebase:firebase-storage:$rootProject.ext.firebaseClientVersion"
+    compile "com.google.firebase:firebase-auth:$rootProject.ext.firebaseClientVersion"
 }
+
+apply plugin: 'com.google.gms.google-services'

@@ -1,5 +1,7 @@
 package luque.david.payme.login;
 
+import android.app.Activity;
+
 import luque.david.payme.login.events.LoginEvent;
 
 /**
@@ -11,5 +13,6 @@ public interface LoginPresenter {
     void checkForAuthenticatedUser();
     void validateLogin(String email, String password);
     void registerNewUser(String email, String password);
+
     void onEventMainThread(LoginEvent event);
 }

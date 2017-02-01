@@ -1,8 +1,9 @@
 package luque.david.payme.listDeals;
 
-import com.firebase.client.ChildEventListener;
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.FirebaseError;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 
 import luque.david.payme.listDeals.event.DealsListEvent;
 import luque.david.payme.domain.FirebaseHelper;
@@ -18,11 +19,14 @@ public class ListDealsRepositoryImpl implements ListDealsRepository {
 
     private FirebaseHelper helper;
     private ChildEventListener dealsEventListener;
+    private DatabaseReference myDealsReference;
     private EventBus eventBus;
 
     public ListDealsRepositoryImpl() {
         this.helper = FirebaseHelper.getInstance();
         this.eventBus = GreenRobotEventBus.getInstance();
+        this.myDealsReference = helper.getMyDealsReference();
+
     }
 
     @Override
@@ -55,13 +59,13 @@ public class ListDealsRepositoryImpl implements ListDealsRepository {
                 }
 
                 @Override
-                public void onCancelled(FirebaseError firebaseError) {
+                public void onCancelled(DatabaseError databaseError) {
 
                 }
             };
         }
 
-        helper.getMyDealsReference().addChildEventListener(dealsEventListener);
+        myDealsReference.addChildEventListener(dealsEventListener);
     }
 
     private void handleDealsEvent(DataSnapshot dataSnapshot, int eventType) {
@@ -89,7 +93,7 @@ public class ListDealsRepositoryImpl implements ListDealsRepository {
     @Override
     public void unsubscribeToDealsListEvents() {
         if(dealsEventListener != null){
-            helper.getMyDealsReference().removeEventListener(dealsEventListener);
+            myDealsReference.removeEventListener(dealsEventListener);
         }
     }
 
