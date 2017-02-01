@@ -1,10 +1,16 @@
 package luque.david.payme.login;
 
-import com.firebase.client.AuthData;
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
+import android.support.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Map;
 
@@ -13,6 +19,7 @@ import luque.david.payme.entities.User;
 import luque.david.payme.lib.EventBus;
 import luque.david.payme.lib.GreenRobotEventBus;
 import luque.david.payme.login.events.LoginEvent;
+import luque.david.payme.login.ui.LoginActivity;
 
 /**
  * Created by David on 14/9/16.
@@ -20,73 +27,65 @@ import luque.david.payme.login.events.LoginEvent;
 public class LoginRepositoryImpl implements LoginRepository {
 
     private FirebaseHelper firebaseHelper;
-    private Firebase dataReference;
-    private Firebase myUserReference;
+    private DatabaseReference dataReference;
+    private DatabaseReference myUserReference;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener listener;
 
     public LoginRepositoryImpl() {
         this.firebaseHelper = FirebaseHelper.getInstance();
         this.dataReference = firebaseHelper.getDataReference();
         this.myUserReference = firebaseHelper.getMyUserReference();
+        this.mAuth = firebaseHelper.getAuthReference();
     }
 
     @Override
     public void singUp(final String email, final String password) {
-        dataReference.createUser(email, password, new Firebase.ValueResultHandler<Map<String, Object>>(){
-            @Override
-            public void onSuccess(Map<String, Object> stringObjectMap) {
-                postEvent(LoginEvent.onSignUpSuccess);
-                singIn(email, password);
-            }
 
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (!task.isSuccessful()) {
+                            postEvent(LoginEvent.onSignUnError, task.getException().getLocalizedMessage());
+                        }
+                    }
+                });
+
+        listener = new FirebaseAuth.AuthStateListener() {
             @Override
-            public void onError(FirebaseError firebaseError) {
-                postEvent(LoginEvent.onSignUnError, firebaseError.getMessage());
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                postEvent(LoginEvent.onSignUpSuccess);
             }
-        });
+        };
+
+        mAuth.addAuthStateListener(listener);
     }
 
     @Override
     public void singIn(String email, String password) {
-        dataReference.authWithPassword(email, password, new Firebase.AuthResultHandler(){
 
-            @Override
-            public void onAuthenticated(AuthData authData) {
-                myUserReference = firebaseHelper.getMyUserReference();
-                myUserReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        User currentUser = dataSnapshot.getValue(User.class);
-
-                        if(currentUser != null){
-                            String email = firebaseHelper.getAuthUserEmail();
-                            if(email != null){
-                                currentUser = new User();
-                                myUserReference.setValue(currentUser);
-                            }
-                        }
+                    public void onComplete(@NonNull Task<AuthResult> task) {
                         postEvent(LoginEvent.onSignInSuccess);
                     }
-
-                    @Override
-                    public void onCancelled(FirebaseError firebaseError) {
-
-                    }
                 });
-            }
 
+        listener = new FirebaseAuth.AuthStateListener() {
             @Override
-            public void onAuthenticationError(FirebaseError firebaseError) {
-                postEvent(LoginEvent.onSignInError, firebaseError.getMessage());
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
             }
-        });
+        };
+
+        mAuth.addAuthStateListener(listener);
     }
 
     @Override
     public void checkSession() {
-
-        AuthData data = dataReference.getAuth();
-
-        if(dataReference.getAuth() != null && firebaseHelper.getAuthUserEmail() != null){
+        if(mAuth != null && mAuth.getCurrentUser() != null){
             initSignIn();
         }else{
             postEvent(LoginEvent.onFailToRecoverSession);
@@ -102,7 +101,7 @@ public class LoginRepositoryImpl implements LoginRepository {
             }
 
             @Override
-            public void onCancelled(FirebaseError firebaseError) {
+            public void onCancelled(DatabaseError databaseError) {
 
             }
         });

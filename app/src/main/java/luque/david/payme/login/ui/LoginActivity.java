@@ -119,6 +119,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @Override
     public void newUserSuccess() {
         Snackbar.make(container, R.string.login_notice_message_signup, Snackbar.LENGTH_SHORT).show();
+        navigateToMainScreen();
     }
 
     @Override

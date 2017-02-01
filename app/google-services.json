@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "932637017919",
+    "firebase_url": "https://payme-ff851.firebaseio.com",
+    "project_id": "payme-ff851",
+    "storage_bucket": "payme-ff851.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:932637017919:android:badf68569acebf7c",
+        "android_client_info": {
+          "package_name": "luque.david.payme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "932637017919-o2atvumqhhrv8h2m63603gjfpv3hub8o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoG2addjvsS1xrMCiu9U90DI2GLCrl7Ao"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
