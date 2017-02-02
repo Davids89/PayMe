@@ -12,7 +12,7 @@ public class Deal {
     private String name;
     private Map<String, Boolean> contacts;
     private String amount;
-    private Date date_created;
+    private String date_created;
     private String info;
 
     public Deal() {
@@ -63,11 +63,11 @@ public class Deal {
         this.amount = amount;
     }
 
-    public Date getDate_created() {
+    public String getDate_created() {
         return date_created;
     }
 
-    public void setDate_created(Date date_created) {
+    public void setDate_created(String date_created) {
         this.date_created = date_created;
     }
 
