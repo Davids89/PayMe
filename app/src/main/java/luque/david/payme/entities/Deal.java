@@ -1,5 +1,7 @@
 package luque.david.payme.entities;
 
+import android.net.Uri;
+
 import java.util.Date;
 import java.util.Map;
 
@@ -14,6 +16,7 @@ public class Deal {
     private String amount;
     private String date_created;
     private String info;
+    private Uri image;
 
     public Deal() {
 
@@ -77,5 +80,13 @@ public class Deal {
 
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    public Uri getImage() {
+        return image;
+    }
+
+    public void setImage(Uri image) {
+        this.image = image;
     }
 }

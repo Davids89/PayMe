@@ -1,12 +1,23 @@
 package luque.david.payme.dealDetails;
 
-import android.util.Log;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 
-import com.google.firebase.database.ChildEventListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 import luque.david.payme.dealDetails.event.DealDetailsEvent;
 import luque.david.payme.domain.FirebaseHelper;
@@ -23,11 +34,11 @@ public class DealDetailsRepositoryImpl implements DealDetailsRepository {
     private EventBus eventBus;
     private DatabaseReference myDealReference;
     private FirebaseHelper helper;
+    private StorageReference storageReference;
 
     public DealDetailsRepositoryImpl() {
         this.eventBus = GreenRobotEventBus.getInstance();
         this.helper = FirebaseHelper.getInstance();
-
     }
 
     @Override
@@ -48,6 +59,41 @@ public class DealDetailsRepositoryImpl implements DealDetailsRepository {
         });
     }
 
+    @Override
+    public void uploadPhotoToDeal(Bitmap photo, String dealId) {
+
+        final String idImage = dealId.concat(".jpg");
+
+        storageReference = FirebaseHelper.getStorageReference().child("image/" + idImage);
+
+        final byte[] data = getImageCompressed(photo);
+
+        UploadTask uploadTask = storageReference.putBytes(data);
+
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                HashMap<String, Object> uriChildren = new HashMap<String, Object>();
+                uriChildren.put("photo", idImage);
+
+                myDealReference.updateChildren(uriChildren);
+
+                post(DealDetailsEvent.onImageAdded, null, null);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+    }
+
+    private byte[] getImageCompressed(Bitmap photo) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        photo.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        return baos.toByteArray();
+    }
+
     private void postSuccess(int eventType, Deal deal){
         post(eventType, deal, null);
     }
@@ -63,7 +109,9 @@ public class DealDetailsRepositoryImpl implements DealDetailsRepository {
         if(error != null){
             event.setError(error);
         }else{
-            event.setDeal(deal);
+            if(deal != null){
+                event.setDeal(deal);
+            }
             event.setEventType(eventType);
         }
 

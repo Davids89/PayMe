@@ -8,6 +8,7 @@ import luque.david.payme.entities.Deal;
 public class DealDetailsEvent {
     public static final int onDealDownloaded = 0;
     public static final int onDealUpdated = 1;
+    public static final int onImageAdded = 2;
 
     private Deal deal;
     private String error;

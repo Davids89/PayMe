@@ -5,4 +5,5 @@ package luque.david.payme.dealDetails.ui;
  */
 public interface DealsDetailsView {
     void setToolbar(String name);
+    void onImageAdded();
 }

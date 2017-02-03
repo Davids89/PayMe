@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
@@ -64,6 +65,7 @@ public class DealDetailsActivity extends AppCompatActivity implements DealsDetai
         if(requestCode == DEAL_PICTURE && resultCode == Activity.RESULT_OK){
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             dealImage.setImageBitmap(photo);
+            presenter.takePicture(photo, dealId);
         }
     }
 
@@ -72,5 +74,10 @@ public class DealDetailsActivity extends AppCompatActivity implements DealsDetai
         setSupportActionBar(dealDetailsToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(name);
+    }
+
+    @Override
+    public void onImageAdded() {
+        Snackbar.make(activityDealDetails, R.string.dealdetails_image_added, Snackbar.LENGTH_SHORT).show();
     }
 }

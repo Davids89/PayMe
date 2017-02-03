@@ -4,6 +4,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 /**
  * Created by David on 12/9/16.
@@ -11,6 +13,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class FirebaseHelper {
     private DatabaseReference dataReference;
     private final static String FIREBASE_URL = "https://payme-ff851.firebaseio.com/";
+    private final static String BUCKET_URL = "gs://payme-ff851.appspot.com";
     private final static String USERS_PATH = "users";
     private final static String DEALS_PATH = "deals";
     private final static String FRIENDS_PATH = "friends";
@@ -21,6 +24,14 @@ public class FirebaseHelper {
 
     public static FirebaseHelper getInstance(){
         return SingletoneHolder.INSTANCE;
+    }
+
+    private static FirebaseStorage getStorageInstance(){
+        return FirebaseStorage.getInstance();
+    }
+
+    public static StorageReference getStorageReference(){
+        return getStorageInstance().getReferenceFromUrl(BUCKET_URL);
     }
 
     public FirebaseHelper(){

@@ -1,5 +1,7 @@
 package luque.david.payme.dealDetails;
 
+import android.graphics.Bitmap;
+
 import luque.david.payme.dealDetails.event.DealDetailsEvent;
 
 /**
@@ -11,4 +13,5 @@ public interface DealDetailsPresenter {
     void onDestroy();
 
     void onEventMainThread(DealDetailsEvent event);
+    void takePicture(Bitmap photo, String dealId);
 }

@@ -1,5 +1,7 @@
 package luque.david.payme.dealDetails;
 
+import android.graphics.Bitmap;
+
 import org.greenrobot.eventbus.Subscribe;
 
 import luque.david.payme.dealDetails.event.DealDetailsEvent;
@@ -46,6 +48,16 @@ public class DealDetailsPresenterImpl implements DealDetailsPresenter {
                 Deal deal = event.getDeal();
                 view.setToolbar(deal.getName());
                 break;
+            case DealDetailsEvent.onImageAdded:
+                view.onImageAdded();
+                break;
+        }
+    }
+
+    @Override
+    public void takePicture(Bitmap photo, String dealId) {
+        if(view != null){
+            interactor.takePicture(photo, dealId);
         }
     }
 }
