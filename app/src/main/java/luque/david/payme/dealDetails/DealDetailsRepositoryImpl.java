@@ -44,12 +44,25 @@ public class DealDetailsRepositoryImpl implements DealDetailsRepository {
     @Override
     public void execute(String id) {
         this.myDealReference = helper.getMyDealReference(id);
+        storageReference = FirebaseHelper.getStorageReference().child("image/" + id + ".jpg");
 
         myDealReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Deal deal = dataSnapshot.getValue(Deal.class);
-                postSuccess(DealDetailsEvent.onDealUpdated, deal);
+                final Deal deal = dataSnapshot.getValue(Deal.class);
+
+                storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        deal.setImage(uri);
+                        postSuccess(DealDetailsEvent.onDealUpdated, deal);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
             }
 
             @Override

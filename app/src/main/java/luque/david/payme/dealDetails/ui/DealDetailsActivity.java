@@ -10,12 +10,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import luque.david.payme.R;
 import luque.david.payme.dealDetails.DealDetailsPresenter;
 import luque.david.payme.dealDetails.DealDetailsPresenterImpl;
+import luque.david.payme.entities.Deal;
+import luque.david.payme.lib.GlideImageLoader;
 
 public class DealDetailsActivity extends AppCompatActivity implements DealsDetailsView{
 
@@ -29,6 +34,7 @@ public class DealDetailsActivity extends AppCompatActivity implements DealsDetai
     private final static int DEAL_PICTURE = 1;
     private DealDetailsPresenter presenter;
     private String dealId;
+    private GlideImageLoader loader;
 
     public DealDetailsActivity() {
         presenter = new DealDetailsPresenterImpl(this);
@@ -42,6 +48,12 @@ public class DealDetailsActivity extends AppCompatActivity implements DealsDetai
 
         getDealId();
         presenter.onCreate(dealId);
+        setGlide();
+    }
+
+    private void setGlide() {
+        RequestManager requestManager = Glide.with(this);
+        loader = new GlideImageLoader(requestManager);
     }
 
     @Override
@@ -79,5 +91,10 @@ public class DealDetailsActivity extends AppCompatActivity implements DealsDetai
     @Override
     public void onImageAdded() {
         Snackbar.make(activityDealDetails, R.string.dealdetails_image_added, Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void setDealDetails(Deal deal) {
+        loader.loadDealImage(dealImage, deal.getImage());
     }
 }
