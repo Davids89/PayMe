@@ -93,8 +93,8 @@ public class DealDetailsActivity extends AppCompatActivity implements DealsDetai
         Snackbar.make(activityDealDetails, R.string.dealdetails_image_added, Snackbar.LENGTH_SHORT).show();
     }
 
-    @Override
+    /*@Override
     public void setDealDetails(Deal deal) {
         loader.loadDealImage(dealImage, deal.getImage());
-    }
+    }*/
 }

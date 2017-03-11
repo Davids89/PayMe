@@ -17,6 +17,15 @@ public class FirebaseHelper {
     private final static String USERS_PATH = "users";
     private final static String DEALS_PATH = "deals";
     private final static String FRIENDS_PATH = "friends";
+    private FirebaseUser user;
+
+    public FirebaseUser getUser() {
+        return user;
+    }
+
+    public void setUser(FirebaseUser user) {
+        this.user = user;
+    }
 
     private static class SingletoneHolder{
         private static final FirebaseHelper INSTANCE = new FirebaseHelper();
@@ -48,18 +57,17 @@ public class FirebaseHelper {
     }
 
     public String getAuthUserEmail(){
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
+
         String email = null;
 
-        if(user != null){
-            email = user.getEmail();
+        if(getUser() != null){
+            email = getUser().getEmail();
         }
 
         return email;
     }
 
-    public DatabaseReference getUserReference(String email){
+    private DatabaseReference getUserReference(String email){
         DatabaseReference userReference = null;
         if(email != null){
             String emailKey = email.replace(".", "_");
@@ -77,7 +85,7 @@ public class FirebaseHelper {
         return getUserReference(getAuthUserEmail());
     }
 
-    public DatabaseReference getDealsReference(String email){
+    private DatabaseReference getDealsReference(String email){
 
         String key = email.replace('.', '_');
 

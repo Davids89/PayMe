@@ -1,6 +1,7 @@
 package luque.david.payme.login;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -48,6 +49,8 @@ public class LoginRepositoryImpl implements LoginRepository {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (!task.isSuccessful()) {
                             postEvent(LoginEvent.onSignUnError, task.getException().getLocalizedMessage());
+                        }else{
+                            postEvent(LoginEvent.onSignUpSuccess);
                         }
                     }
                 });
@@ -55,7 +58,7 @@ public class LoginRepositoryImpl implements LoginRepository {
         listener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                postEvent(LoginEvent.onSignUpSuccess);
+                Log.d("LOGIN", "LOGI");
             }
         };
 
@@ -69,14 +72,22 @@ public class LoginRepositoryImpl implements LoginRepository {
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        postEvent(LoginEvent.onSignInSuccess);
+                        if (!task.isSuccessful()) {
+                            postEvent(LoginEvent.onSignInError, task.getException().getLocalizedMessage());
+                        }else{
+                            postEvent(LoginEvent.onSignInSuccess);
+                        }
+
                     }
                 });
 
         listener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if(user != null && firebaseHelper.getUser() == null){
+                    firebaseHelper.setUser(user);
+                }
             }
         };
 
@@ -93,6 +104,7 @@ public class LoginRepositoryImpl implements LoginRepository {
     }
 
     private void initSignIn(){
+        firebaseHelper.setUser(mAuth.getCurrentUser());
         myUserReference = firebaseHelper.getMyUserReference();
         myUserReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
