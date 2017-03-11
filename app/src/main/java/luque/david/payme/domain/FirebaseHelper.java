@@ -2,11 +2,10 @@ package luque.david.payme.domain;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 /**
  * Created by David on 12/9/16.
@@ -14,9 +13,19 @@ import com.google.firebase.database.ValueEventListener;
 public class FirebaseHelper {
     private DatabaseReference dataReference;
     private final static String FIREBASE_URL = "https://payme-ff851.firebaseio.com/";
+    private final static String BUCKET_URL = "gs://payme-ff851.appspot.com";
     private final static String USERS_PATH = "users";
     private final static String DEALS_PATH = "deals";
     private final static String FRIENDS_PATH = "friends";
+    private FirebaseUser user;
+
+    public FirebaseUser getUser() {
+        return user;
+    }
+
+    public void setUser(FirebaseUser user) {
+        this.user = user;
+    }
 
     private static class SingletoneHolder{
         private static final FirebaseHelper INSTANCE = new FirebaseHelper();
@@ -24,6 +33,14 @@ public class FirebaseHelper {
 
     public static FirebaseHelper getInstance(){
         return SingletoneHolder.INSTANCE;
+    }
+
+    private static FirebaseStorage getStorageInstance(){
+        return FirebaseStorage.getInstance();
+    }
+
+    public static StorageReference getStorageReference(){
+        return getStorageInstance().getReferenceFromUrl(BUCKET_URL);
     }
 
     public FirebaseHelper(){
@@ -40,18 +57,17 @@ public class FirebaseHelper {
     }
 
     public String getAuthUserEmail(){
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
+
         String email = null;
 
-        if(user != null){
-            email = user.getEmail();
+        if(getUser() != null){
+            email = getUser().getEmail();
         }
 
         return email;
     }
 
-    public DatabaseReference getUserReference(String email){
+    private DatabaseReference getUserReference(String email){
         DatabaseReference userReference = null;
         if(email != null){
             String emailKey = email.replace(".", "_");
@@ -61,11 +77,15 @@ public class FirebaseHelper {
         return userReference;
     }
 
+    public DatabaseReference getMyDealReference(String id){
+        return getMyDealsReference().child(id).getRef();
+    }
+
     public DatabaseReference getMyUserReference(){
         return getUserReference(getAuthUserEmail());
     }
 
-    public DatabaseReference getDealsReference(String email){
+    private DatabaseReference getDealsReference(String email){
 
         String key = email.replace('.', '_');
 

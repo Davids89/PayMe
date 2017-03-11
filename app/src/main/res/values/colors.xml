@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#5FA9E6</color>
-    <color name="colorPrimaryDark">#4489c4</color>
-    <color name="colorAccent">#75B5E7</color>
+    <color name="colorPrimary">#4CAF50</color>
+    <color name="colorPrimaryDark">#388E3C</color>
+    <color name="colorPrimaryLight">#C8E6C9</color>
+    <color name="colorAccent">#FF9800</color>
+    <color name="primaryText">#212121</color>
+    <color name="secondaryText">#757575</color>
+    <color name="textIcons">#FFFFFF</color>
 
     <color name="deals.background">#EFF3F5</color>
 </resources>

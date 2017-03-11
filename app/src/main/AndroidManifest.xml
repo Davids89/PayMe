@@ -3,6 +3,7 @@
     package="luque.david.payme">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera" android:required="false"></uses-feature>
 
     <application
         android:name="luque.david.payme.PayMeApplication"
@@ -23,7 +24,7 @@
             android:name="luque.david.payme.addDeal.ui.AddDealActivity"
             android:parentActivityName="luque.david.payme.main.ui.MainActivity"
             android:label="@string/adddeal.message.title" />
-        <activity android:name="luque.david.payme.dealDetails.DealDetails"
+        <activity android:name="luque.david.payme.dealDetails.ui.DealDetailsActivity"
             android:parentActivityName="luque.david.payme.main.ui.MainActivity"/>
     </application>
 

@@ -34,14 +34,15 @@ public class AddDealRepositoryImpl implements AddDealRepository {
     @Override
     public void createDeal(String name, String price, String info) {
 
-        final DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy_HH:mm:ss");
-        final Date date = new Date();
+        final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy_HH:mm:ss");
+        String date = dateFormat.format(new Date());
 
         Deal newDeal = new Deal();
 
         newDeal.setName(name);
         newDeal.setAmount(price);
         newDeal.setInfo(info);
+        newDeal.setDate_created(date);
 
         Map<String, Boolean> contacts = new HashMap<String, Boolean>();
         contacts.put("bb@bb_com", false);

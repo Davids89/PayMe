@@ -5,7 +5,7 @@
     android:id="@+id/activity_deal_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="luque.david.payme.dealDetails.DealDetails">
+    tools:context="luque.david.payme.dealDetails.ui.DealDetailsActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/deal_details_appbar"
@@ -26,34 +26,60 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="2">
 
         <ImageView
             android:id="@+id/viewA"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.6"
+            android:layout_height="0dp"
+            android:layout_weight=".8"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
             android:orientation="horizontal"/>
 
         <LinearLayout
             android:id="@+id/viewB"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.4"
-            android:orientation="horizontal"/>
+            android:layout_height="0dp"
+            android:layout_weight="1.2"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/text_margin_top">
+            
+            <TextView
+                android:id="@+id/dealTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/heading"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+
+            <TextView
+                android:id="@+id/dealDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/subheading"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+
+            <TextView
+                android:text="@string/friends"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/body_text"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/friendsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+            
+        </LinearLayout>
 
     </LinearLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:clickable="true"
-        android:src="@drawable/ic_friends"
-        app:layout_anchor="@id/viewA"
-        app:layout_anchorGravity="bottom|right|end"/>
 
 </android.support.design.widget.CoordinatorLayout>

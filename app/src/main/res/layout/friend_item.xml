@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/recycler_top_padding">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/friendImage"
+        android:src="@drawable/ic_friend"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_width="40dp"
+        android:layout_height="40dp" />
+
+    <TextView
+        android:id="@+id/friendEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/text_recycler_margin"/>
+
+</RelativeLayout>

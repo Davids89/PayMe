@@ -1,9 +1,15 @@
 package luque.david.payme.listDeals;
 
+import android.net.Uri;
+import android.support.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.storage.StorageReference;
 
 import luque.david.payme.listDeals.event.DealsListEvent;
 import luque.david.payme.domain.FirebaseHelper;
@@ -21,6 +27,7 @@ public class ListDealsRepositoryImpl implements ListDealsRepository {
     private ChildEventListener dealsEventListener;
     private DatabaseReference myDealsReference;
     private EventBus eventBus;
+    private StorageReference storageReference;
 
     public ListDealsRepositoryImpl() {
         this.helper = FirebaseHelper.getInstance();
@@ -68,13 +75,13 @@ public class ListDealsRepositoryImpl implements ListDealsRepository {
         myDealsReference.addChildEventListener(dealsEventListener);
     }
 
-    private void handleDealsEvent(DataSnapshot dataSnapshot, int eventType) {
-        String id = (String) dataSnapshot.getKey();
+    private void handleDealsEvent(DataSnapshot dataSnapshot, final int eventType) {
+        String id = dataSnapshot.getKey();
         String name = (String) dataSnapshot.child("name").getValue();
         String price = (String) dataSnapshot.child("amount").getValue();
         String info = (String) dataSnapshot.child("info").getValue();
 
-        Deal deal = new Deal();
+        final Deal deal = new Deal();
         deal.setAmount(price);
         deal.setName(name);
         deal.setDealId(id);
