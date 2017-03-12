@@ -44,22 +44,24 @@ public class PaymentPresenterImpl implements PaymentPresenter {
         this.view = null;
     }
 
-    @Subscribe
     @Override
+    @Subscribe
     public void onMainThread(PaymentEvent event) {
 
-        Deal deal = event.getDeal();
+        if(view != null){
+            Deal deal = event.getDeal();
 
-        switch (event.getEventType()){
-            case PaymentEvent.onPaymentAdded:
-                view.onPaymentAdded(deal);
-                break;
-            case PaymentEvent.onPaymentUpdated:
-                view.onPaymentUpdated(deal);
-                break;
-            case PaymentEvent.onPaymentRemoved:
-                view.onPaymentRemoved(deal);
-                break;
+            switch (event.getEventType()){
+                case PaymentEvent.onPaymentAdded:
+                    view.onPaymentAdded(deal);
+                    break;
+                case PaymentEvent.onPaymentUpdated:
+                    view.onPaymentUpdated(deal);
+                    break;
+                case PaymentEvent.onPaymentRemoved:
+                    view.onPaymentRemoved(deal);
+                    break;
+            }
         }
     }
 }

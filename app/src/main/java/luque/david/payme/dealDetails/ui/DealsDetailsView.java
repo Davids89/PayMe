@@ -8,4 +8,5 @@ import luque.david.payme.entities.Deal;
 public interface DealsDetailsView {
     void setToolbar(String name);
     void onImageAdded();
+    void setDealDetails(Deal deal);
 }

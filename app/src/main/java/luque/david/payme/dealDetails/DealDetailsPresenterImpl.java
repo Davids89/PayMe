@@ -47,6 +47,7 @@ public class DealDetailsPresenterImpl implements DealDetailsPresenter {
             case DealDetailsEvent.onDealUpdated:
                 Deal deal = event.getDeal();
                 view.setToolbar(deal.getName());
+                view.setDealDetails(event.getDeal());
                 break;
             case DealDetailsEvent.onImageAdded:
                 view.onImageAdded();
