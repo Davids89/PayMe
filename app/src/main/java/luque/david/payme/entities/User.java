@@ -7,10 +7,7 @@ import java.util.Map;
  */
 public class User {
     private String email;
-    private boolean online;
     private Map<String, Boolean> contacts;
-
-    public final static boolean ONLINE = true;
 
     public Map<String, Boolean> getContacts() {
         return contacts;
@@ -18,14 +15,6 @@ public class User {
 
     public void setContacts(Map<String, Boolean> contacts) {
         this.contacts = contacts;
-    }
-
-    public boolean isOnline() {
-        return online;
-    }
-
-    public void setOnline(boolean online) {
-        this.online = online;
     }
 
     public String getEmail() {
@@ -37,8 +26,4 @@ public class User {
     }
 
     public final static boolean OFFLINE = false;
-
-    public User() {
-
-    }
 }
