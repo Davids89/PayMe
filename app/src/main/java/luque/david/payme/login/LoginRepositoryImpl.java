@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.EnumMap;
 import java.util.Map;
 
 import luque.david.payme.domain.FirebaseHelper;
@@ -36,7 +37,6 @@ public class LoginRepositoryImpl implements LoginRepository {
     public LoginRepositoryImpl() {
         this.firebaseHelper = FirebaseHelper.getInstance();
         this.dataReference = firebaseHelper.getDataReference();
-        this.myUserReference = firebaseHelper.getMyUserReference();
         this.mAuth = firebaseHelper.getAuthReference();
     }
 
@@ -50,6 +50,7 @@ public class LoginRepositoryImpl implements LoginRepository {
                         if (!task.isSuccessful()) {
                             postEvent(LoginEvent.onSignUnError, task.getException().getLocalizedMessage());
                         }else{
+                            addUserToFirebase(email);
                             postEvent(LoginEvent.onSignUpSuccess);
                         }
                     }
@@ -58,11 +59,23 @@ public class LoginRepositoryImpl implements LoginRepository {
         listener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                Log.d("LOGIN", "LOGI");
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if(user != null && firebaseHelper.getUser() == null){
+                    firebaseHelper.setUser(user);
+                }
             }
         };
 
         mAuth.addAuthStateListener(listener);
+    }
+
+    private void addUserToFirebase(String email) {
+
+        User newUser = new User();
+        newUser.setEmail(email);
+
+        myUserReference = firebaseHelper.getMyUserReference();
+        myUserReference.setValue(newUser);
     }
 
     @Override
@@ -97,26 +110,11 @@ public class LoginRepositoryImpl implements LoginRepository {
     @Override
     public void checkSession() {
         if(mAuth != null && mAuth.getCurrentUser() != null){
-            initSignIn();
+            firebaseHelper.setUser(mAuth.getCurrentUser());
+            postEvent(LoginEvent.onSignInSuccess);
         }else{
             postEvent(LoginEvent.onFailToRecoverSession);
         }
-    }
-
-    private void initSignIn(){
-        firebaseHelper.setUser(mAuth.getCurrentUser());
-        myUserReference = firebaseHelper.getMyUserReference();
-        myUserReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                postEvent(LoginEvent.onSignInSuccess);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
     private void postEvent(int type, String errorMessage){
